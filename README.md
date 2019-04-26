@@ -1,4 +1,3 @@
-
 # DESwiz
 
 DESwiz is a discrete event system tool for working with finite state automata
