@@ -31,8 +31,8 @@ Note that the states `q1, q2, q3` and events `a, b, c` are placeholders.
     "bad": ["q1"]
   },
 
-  // Secondly, describe the alphabet sigma
-  "alphabet": {
+  // Secondly, describe the alphabet of events
+  "events": {
 
     // Within this, we list all events defined (does not include epsilon by
     //   default)
