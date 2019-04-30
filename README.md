@@ -5,11 +5,14 @@ and other systems. It has been designed as proof-of-concept for academic works
 in theoretical computer science developed at Inria (Rennes, France) and Mount
 Allison University (Sackville, Canada).
 
-## Current Limitations
+## Current Features
 
-Non-deterministic automaton input are not yet permitted. The only form of
-non-determinism implemented so far is having multiple possible initial
-states.
+- Composing two automata with union and product operations
+
+## Upcoming Features
+
+- Checking to make sure that every time a user gives an automaton, it is
+formatted appropriately
 
 ## Input Specification
 

@@ -98,7 +98,7 @@ def product_transitions(automata, all_events):
 
     # Add initial states to marked, if needed
     for i in range(len(initial_states)):
-        if __check_marked(automata, initial_states[i]):
+        if state_helper.check_marked(automata, initial_states[i]):
             marked.append(initial_strings[i])
 
     transitions = {} # The transitions for the resulting automaton
@@ -109,7 +109,6 @@ def product_transitions(automata, all_events):
 
     # Keep going through queue until done
     while len(queue) > 0:
-        print(queue)
         curr = queue.pop(0)
         # Go through every event in alphabet
         for event in all_events:
@@ -148,7 +147,7 @@ def product_transitions(automata, all_events):
                         queue.append(next_states[i])
                         visited.add(next_strings[i])
                         # Check if should be marked, if so, add to marked.
-                        if __check_marked(automata, next_states[i]):
+                        if state_helper.check_marked(automata, next_states[i]):
                             marked.append(next_strings[i])
     return {
         "states": {
