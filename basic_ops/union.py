@@ -40,10 +40,10 @@ def union(automata):
         # Dictionary for an automaton
     }
     '''
-    result = {}
+    new_automaton = {}
     # First, get all events in the new automaton by unioning sets
-    result["events"] = helper.union_events(automata)
+    new_automaton["events"] = helper.union_events(automata)
     # Then, update the transition function and add all of the states
-    result.update(helper.union_transitions(automata, result["events"]["all"]))
+    new_automaton.update(helper.union_transitions(automata, new_automaton["events"]["all"]))
 
-    return result
+    return new_automaton

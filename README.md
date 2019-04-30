@@ -31,8 +31,11 @@ Note that the states `q1, q2, q3` and events `a, b, c` are placeholders.
     // Initial state(s)
     "initial": ["q1"],
 
-    // Define which are bad, if any (depends on the operation, may not be
-    //   necessary)
+    // Define which are marked, which is used as a secret state for opacity
+    // problems.
+    "marked": ["q1"],
+
+    // Define which are bad, if any
     "bad": ["q1"]
   },
 
@@ -67,8 +70,7 @@ Note that the states `q1, q2, q3` and events `a, b, c` are placeholders.
 			"q2->a": ["q3", "q4"] // Multiple states indicates nondeterminism
 		},
 
-    // Define which are bad, if any (depends on the operation, may not be
-    //   necessary)
+    // Define which are bad, if any
     "bad": {
 			"q1->a": ["q2"]
 		}

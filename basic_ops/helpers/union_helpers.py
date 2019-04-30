@@ -103,6 +103,31 @@ def union_initial(automata, initial_so_far = []):
     initial_so_far.pop() # Remove the element we added
     return result
 
+def __check_marked(automata, state):
+    '''Checks if a state should be marked, where the state is a macro-state
+    composed of states from the automata passed as a parameter. If at least one
+    automaton has the state marked, returns true
+
+    Parameters
+    ----------
+    automata : array of dictionaries
+        Array of all of the automata which should be composed
+
+    Yields
+    ------
+    boolean
+        If the state should be marked, true; else, false
+
+    Examples
+    --------
+    >>> __check_marked([automaton1, automaton2], ["q1", "q2"])
+    True
+    '''
+    for i in range(len(automata)):
+        if state[i] in automata[i]["states"]["marked"]:
+            return True
+    return False
+
 def union_transitions(automata, all_events):
     '''Unions the transitions of multiple automata. That is, a transition is
     defined from a state if and only if all automata that have such an event
@@ -131,14 +156,23 @@ def union_transitions(automata, all_events):
         of the automata
     '''
 
+    marked = [] # The marked states in the automaton
+
     # Get the initial states, mark them as visited (must convert to strings
     # in order to hash them)
     initial_states = union_initial(automata)
-    visited = set([helper.format_state(s) for s in initial_states])
+    initial_strings = [helper.format_state(s) for s in initial_states]
+
+    # Add initial states to marked, if needed
+    for i in range(len(initial_states)):
+        if __check_marked(automata, initial_states[i]):
+            marked.append(initial_strings[i])
+
     transitions = {} # The transitions for the resulting automaton
 
     # Go through all states systematically
     queue = initial_states.copy()
+    visited = set(initial_strings)
 
     # Keep going through queue until done
     while len(queue) > 0:
@@ -176,13 +210,17 @@ def union_transitions(automata, all_events):
                 for i in range(len(next_strings)):
                     if next_strings[i] not in visited:
                         # Then add this state to process next
-                        visited.add(next_strings[i])
                         queue.append(next_states[i])
+                        visited.add(next_strings[i])
+                        # Check if should be marked, if so, add to marked.
+                        if __check_marked(automata, next_states[i]):
+                            marked.append(next_strings[i])
     return {
         "states": {
             "all": list(visited),
             "initial": [helper.format_state(s) for s in initial_states],
-            "bad": []
+            "bad": [],
+            "marked": marked
         },
         "transitions": {
             "all": transitions,
