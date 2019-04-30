@@ -1,0 +1,49 @@
+import helpers.union_helpers as helper
+
+def union(automata):
+    '''Composes two or more finite state automata.
+
+    Specifically, the union operation synchronizes all of the automata on their
+    common events, allowing private events regardless.
+
+    Note
+    ----
+    Any data on bad states or transitions will be not be included in the
+    resulting automaton.
+    Also, all automata must have the same number of players in the system which
+    have sets of controllable and observable events.
+    TODO: add a verifier to ensure correct input.
+
+    Parameters
+    ----------
+    automata : array of dictionaries
+        Array of all of the automata which should be composed
+
+    Yields
+    ------
+    dict
+        The resulting composed automaton
+
+    Examples
+    --------
+    Assume a list of file names of JSON automata exists, called filenames.
+
+    >>> import json
+    >>> automata = [{}] * len(filenames)
+    >>> if filenames:
+    >>>     for i in range(len(filenames)):
+    >>>         with open(filenames[i], 'r') as f:
+    >>>             automata[i] = json.load(f)
+    >>> new_automaton = union(automata)
+    >>> print(new_automaton)
+    {
+        # Dictionary for an automaton
+    }
+    '''
+    result = {}
+    # First, get all events in the new automaton by unioning sets
+    result["events"] = helper.union_events(automata)
+    # Then, update the transition function and add all of the states
+    result.update(helper.union_transitions(automata, result["events"]["all"]))
+
+    return result
