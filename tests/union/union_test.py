@@ -1,18 +1,19 @@
 import unittest
-import helpers.convert_to_sets as converter
-import helpers.string_helpers as helper
+import basic_ops.helpers.convert_to_sets as converter
+import basic_ops.helpers.string_helpers as helper
 import json
-from product import product
+from basic_ops.union import union
 
-class TestProduct(unittest.TestCase):
+class TestUnion(unittest.TestCase):
+
     def setUp(self):
         filenames1 = [
-            "test_files/product_tests/product_test_1a.in",
-            "test_files/product_tests/product_test_2a.in"
+            "tests/union/union_test_cases/union_test_1a.in",
+            "tests/union/union_test_cases/union_test_2a.in"
         ]
         filenames2 = [
-            "test_files/product_tests/product_test_1b.in",
-            "test_files/product_tests/product_test_2b.in"
+            "tests/union/union_test_cases/union_test_1b.in",
+            "tests/union/union_test_cases/union_test_2b.in"
         ]
 
         # First automaton for each test case
@@ -27,7 +28,7 @@ class TestProduct(unittest.TestCase):
             with open(filenames2[i]) as f:
                 self.automata2[i] = json.load(f)
 
-    def test_product(self):
+    def test_union(self):
         '''
         This ensures that all pre-built test cases work.
         '''
@@ -35,11 +36,11 @@ class TestProduct(unittest.TestCase):
 
             # Get the answer
             ans = None
-            with open("test_files/product_tests/product_test_" + str(i + 1) + ".out") as f:
+            with open("tests/union/union_test_cases/union_test_" + str(i + 1) + ".out") as f:
                 ans = json.load(f)
 
             # Get the product of the appropriate automata
-            result = product([self.automata1[i], self.automata2[i]])
+            result = union([self.automata1[i], self.automata2[i]])
 
             # Print
             # helper.pretty_print(result)

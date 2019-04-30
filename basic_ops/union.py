@@ -1,4 +1,4 @@
-import helpers.union_helpers as helper
+import basic_ops.helpers.union_helpers as helper
 
 def union(automata):
     '''Composes two or more finite state automata.

@@ -1,5 +1,5 @@
-import helpers.string_helpers as helper
-import helpers.state_helpers as state_helper
+import basic_ops.helpers.string_helpers as helper
+import basic_ops.helpers.state_helpers as state_helper
 
 def product_events(automata):
     '''Intersects all of the events of multiple automata

@@ -1,19 +1,18 @@
 import unittest
-import helpers.convert_to_sets as converter
-import helpers.string_helpers as helper
+import basic_ops.helpers.convert_to_sets as converter
+import basic_ops.helpers.string_helpers as helper
 import json
-from union import union
+from basic_ops.product import product
 
-class TestUnion(unittest.TestCase):
-
+class TestProduct(unittest.TestCase):
     def setUp(self):
         filenames1 = [
-            "test_files/union_tests/union_test_1a.in",
-            "test_files/union_tests/union_test_2a.in"
+            "tests/product/product_test_cases/product_test_1a.in",
+            "tests/product/product_test_cases/product_test_2a.in"
         ]
         filenames2 = [
-            "test_files/union_tests/union_test_1b.in",
-            "test_files/union_tests/union_test_2b.in"
+            "tests/product/product_test_cases/product_test_1b.in",
+            "tests/product/product_test_cases/product_test_2b.in"
         ]
 
         # First automaton for each test case
@@ -28,7 +27,7 @@ class TestUnion(unittest.TestCase):
             with open(filenames2[i]) as f:
                 self.automata2[i] = json.load(f)
 
-    def test_union(self):
+    def test_product(self):
         '''
         This ensures that all pre-built test cases work.
         '''
@@ -36,11 +35,11 @@ class TestUnion(unittest.TestCase):
 
             # Get the answer
             ans = None
-            with open("test_files/union_tests/union_test_" + str(i + 1) + ".out") as f:
+            with open("tests/product/product_test_cases/product_test_" + str(i + 1) + ".out") as f:
                 ans = json.load(f)
 
             # Get the product of the appropriate automata
-            result = union([self.automata1[i], self.automata2[i]])
+            result = product([self.automata1[i], self.automata2[i]])
 
             # Print
             # helper.pretty_print(result)
@@ -48,6 +47,3 @@ class TestUnion(unittest.TestCase):
 
             # Check answer, making sure it's OK if elements not in order
             self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))
-
-if __name__ == "__main__":
-    unittest.main()
