@@ -1,8 +1,8 @@
 import helpers.string_helpers as helper
 import helpers.state_helpers as state_helper
 
-def union_events(automata):
-    '''Unions all of the events of multiple automata
+def product_events(automata):
+    '''Intersects all of the events of multiple automata
 
     Parameters
     ----------
@@ -12,12 +12,12 @@ def union_events(automata):
     Yields
     ------
     dict
-        Dictionary containing the union for all events, controllable events,
-        and observable events.
+        Dictionary containing the intersection for all events, controllable
+        events, and observable events.
 
     Examples
     --------
-    >>> events = union_events([automaton1, automaton2, automaton3])
+    >>> events = product_events([automaton1, automaton2, automaton3])
     >>> print(events)
     {
         "all": ["a", "b", "c"],
@@ -31,25 +31,27 @@ def union_events(automata):
     }
     '''
     if len(automata) < 2:
-        raise Exception("Union requires at least two automata in a list as input.")
+        raise Exception("Product requires at least two automata in a list as input.")
 
     # The number of players with different alphabets for observing/controlling
     num_players = len(automata[0]["events"]["controllable"])
-    all_events = set()
-    attacker_events = set()
-    cont_events = [set()] * num_players
-    obs_events = [set()] * num_players
 
-    # For each automaton, add its events
-    for a in automata:
+    # Initialize the sets with what's in the first automaton
+    all_events = set(automata[0]["events"]["all"])
+    attacker_events = set(automata[0]["events"]["attacker"])
+    cont_events = [set(x) for x in automata[0]["events"]["controllable"]]
+    obs_events = [set(x) for x in automata[0]["events"]["observable"]]
+
+    # For each additional automaton, intersect its events
+    for a in automata[1:]:
         events = a["events"]
-        all_events = all_events.union(set(events["all"]))
-        attacker_events = all_events.union(set(events["attacker"]))
+        all_events = all_events.intersection(set(events["all"]))
+        attacker_events = all_events.intersection(set(events["attacker"]))
 
         # Add the controllable and observable events from each of the automata
         for i in range(num_players):
-            cont_events[i] = cont_events[i].union(set(events["controllable"][i]))
-            obs_events[i] = obs_events[i].union(set(events["observable"][i]))
+            cont_events[i] = cont_events[i].intersection(set(events["controllable"][i]))
+            obs_events[i] = obs_events[i].intersection(set(events["observable"][i]))
 
     # Add the events to the result
     return {
@@ -60,13 +62,12 @@ def union_events(automata):
         "attacker": list(attacker_events)
     }
 
-def union_transitions(automata, all_events):
-    '''Unions the transitions of multiple automata. That is, a transition is
-    defined from a state if and only if all automata that have such an event
-    defined have a transition defined. This also applies when only one
-    automaton has a transition defined.
+def product_transitions(automata, all_events):
+    '''Performs product on the transitions of multiple automata. That is, a
+    transition is defined from a state if and only if all automata have
+    the event defined (no private events).
 
-    This also generates the state space for the unioned automaton.
+    This also generates the state space for the product automaton.
 
     Note
     ----
@@ -84,7 +85,7 @@ def union_transitions(automata, all_events):
     Yields
     ------
     dict
-        All of the states and transitions that are defined in a composed union
+        All of the states and transitions that are defined in a composed product
         of the automata
     '''
 
@@ -97,7 +98,7 @@ def union_transitions(automata, all_events):
 
     # Add initial states to marked, if needed
     for i in range(len(initial_states)):
-        if state_helper.check_marked(automata, initial_states[i]):
+        if __check_marked(automata, initial_states[i]):
             marked.append(initial_strings[i])
 
     transitions = {} # The transitions for the resulting automaton
@@ -108,6 +109,7 @@ def union_transitions(automata, all_events):
 
     # Keep going through queue until done
     while len(queue) > 0:
+        print(queue)
         curr = queue.pop(0)
         # Go through every event in alphabet
         for event in all_events:
@@ -115,22 +117,24 @@ def union_transitions(automata, all_events):
             # should
             failure = False
             next_state = []
-            for i in range(len(automata)):
+            i = 0
+
+            # The following loop is the biggest difference from the union
+            # operation.
+            while not failure and i < len(automata):
                 # Get the automaton and its state
                 a = automata[i]
                 prev_state = curr[i]
 
-                # If the state should exist here
-                if event in a["events"]["all"]:
-                    # Then check if valid
-                    transition = helper.format_transition(prev_state, event)
-                    if transition in a["transitions"]["all"]:
-                        next_state.append(a["transitions"]["all"][transition])
-                    else:
-                        failure = True # Not defined
+                # Get the transition that should exist
+                transition = helper.format_transition(prev_state, event)
+                if transition in a["transitions"]["all"]:
+                    next_state.append(a["transitions"]["all"][transition])
                 else:
-                    # Then we don't change states
-                    next_state.append([prev_state])
+                    failure = True # Then it should not be defined
+                i += 1
+
+            # If all automata had the transition defined, then add it
             if not failure:
                 # Get all possibilities (if nondeterministic)
                 next_states = helper.get_states(next_state)
@@ -144,7 +148,7 @@ def union_transitions(automata, all_events):
                         queue.append(next_states[i])
                         visited.add(next_strings[i])
                         # Check if should be marked, if so, add to marked.
-                        if state_helper.check_marked(automata, next_states[i]):
+                        if __check_marked(automata, next_states[i]):
                             marked.append(next_strings[i])
     return {
         "states": {
