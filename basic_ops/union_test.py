@@ -1,6 +1,5 @@
 import unittest
-import test_files.verify as verifier
-import test_files.convert_to_sets as converter
+import helpers.convert_to_sets as converter
 import helpers.string_helpers as helper
 import json
 from union import union
@@ -13,15 +12,16 @@ class TestUnion(unittest.TestCase):
             with open(filenames[i]) as f:
                 self.automata[i] = json.load(f)
 
-    def test_states(self):
+    def test_union_normal(self):
+        '''
+        This ensures that the first pre-built test case (two simple automata,
+        multiple initial states) works.
+        '''
         ans = None
         with open("test_files/union_test_1.out") as f:
             ans = json.load(f)
-        print(ans)
         result = union(self.automata)
         self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))
-        # self.assertTrue(verifier.verify(result, ans))
-        helper.pretty_print(result)
 
 
 if __name__ == "__main__":
