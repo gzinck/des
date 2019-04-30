@@ -69,14 +69,14 @@ Note that the states `q1, q2, q3` and events `a, b, c` are placeholders.
 
     // List all of the transitions
     "all": {
-			"q1->a": ["q2"], // Indicates q1 has an a transition to q2
-			"q2->a": ["q3", "q4"] // Multiple states indicates nondeterminism
-		},
+      "q1->a": ["q2"], // Indicates q1 has an a transition to q2
+      "q2->a": ["q3", "q4"] // Multiple states indicates nondeterminism
+    },
 
     // Define which are bad, if any
     "bad": {
-			"q1->a": ["q2"]
-		}
+      "q1->a": ["q2"]
+    }
   }
 }
 ```
