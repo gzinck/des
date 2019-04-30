@@ -142,6 +142,7 @@ def union_transitions(automata, all_events):
 
     # Keep going through queue until done
     while len(queue) > 0:
+        print(queue)
         curr = queue.pop(0)
         # Go through every event in alphabet
         for event in all_events:
@@ -164,16 +165,19 @@ def union_transitions(automata, all_events):
                         failure = True # Not defined
                 else:
                     # Then we don't change states
-                    next_state.append(prev_state)
-            # Get a string state for use with sets in python
-            next = helper.format_state(next_state)
+                    next_state.append([prev_state])
             if not failure:
+                # Get all possibilities (if nondeterministic)
+                next_states = helper.get_states(next_state)
+                # Get a string state for use with sets in python
+                next_strings = [helper.format_state(nxt) for nxt in next_states]
                 # When adding transitions, convert to string format
-                transitions[helper.format_transition(helper.format_state(curr), event)] = next
-                if next not in visited:
-                    # Then add this state to process next
-                    visited.add(next)
-                    queue.append(next_state)
+                transitions[helper.format_transition(helper.format_state(curr), event)] = next_strings
+                for i in range(len(next_strings)):
+                    if next_strings[i] not in visited:
+                        # Then add this state to process next
+                        visited.add(next_strings[i])
+                        queue.append(next_states[i])
     return {
         "states": {
             "all": list(visited),

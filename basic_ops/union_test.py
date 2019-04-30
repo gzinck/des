@@ -21,6 +21,8 @@ class TestUnion(unittest.TestCase):
         with open("test_files/union_test_1.out") as f:
             ans = json.load(f)
         result = union(self.automata)
+        helper.pretty_print(result)
+        helper.pretty_print(ans)
         self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))
 
 

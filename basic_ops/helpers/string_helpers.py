@@ -1,5 +1,41 @@
 import pprint
 
+def get_states(states, chosen_so_far = []):
+    '''A list of current states for multiple automata in a composed system (i.e.,
+    a "macro-state") has some states which are non-deterministic: that is, the
+    state might be ["q1", ["q2", "q3"]]. We want to find all distinct states,
+    so we want ["q1", "q2"] and ["q1", "q3"]. This becomes a major task when
+    there are many options for many automata, leading to a combinatorial
+    explosion.
+
+    Parameters
+    ----------
+    states : array of strings, or array of arrays of strings
+        Array of all states (or possible states)
+
+    Yields
+    ------
+    Array of arrays of strings
+        All possible macro-states
+
+    Examples
+    --------
+    >>> print(get_states(["q1", ["q2", "q3"]]))
+    [["q1", "q2"], ["q1", "q3"]]
+    '''
+    index = len(chosen_so_far)
+
+    # Base case
+    if index == len(states):
+        return [chosen_so_far.copy()]
+
+    macro_states = []
+    for option in states[index]:
+        chosen_so_far.append(option)
+        macro_states.extend(get_states(states, chosen_so_far))
+        chosen_so_far.pop()
+    return macro_states
+
 def format_state(states):
     '''Creates a macro-state containing all of the states passed in.
 
