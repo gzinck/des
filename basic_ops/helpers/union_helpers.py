@@ -86,6 +86,24 @@ def union_transitions(automata, all_events):
     dict
         All of the states and transitions that are defined in a composed union
         of the automata
+
+
+    Examples
+    --------
+    In the case of an empty automaton
+    >>> print(union_transitions(automaton))
+    {
+        "states": {
+            "all": [],
+            "initial": [],
+            "bad": [],
+            "marked": []
+        },
+        "transitions": {
+            "all": {},
+            "bad": {}
+        }
+    }
     '''
 
     marked = [] # The marked states in the automaton

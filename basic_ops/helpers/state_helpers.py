@@ -44,7 +44,7 @@ def get_initial(automata, initial_so_far = []):
 def check_marked(automata, state):
     '''Checks if a state should be marked, where the state is a macro-state
     composed of states from the automata passed as a parameter. If at least one
-    automaton has the state marked, returns true
+    automaton has the state marked, returns true.
 
     Parameters
     ----------
@@ -65,3 +65,31 @@ def check_marked(automata, state):
         if state[i] in automata[i]["states"]["marked"]:
             return True
     return False
+
+def check_marked_inverse(automaton, state):
+    '''Checks if a state should be marked, where the state is a macro-state
+    composed of states from the SINGLE automaton passed as a parameter. If at
+    least one component state is NOT marked, returns false.
+    This function exists for checking for opacity, since opacity is maintained
+    when there is at least one state which does not give away the secret (i.e.,
+    there is at least one state which is not marked).
+
+    Parameters
+    ----------
+    automata : dictionary
+        The automaton to check
+
+    Yields
+    ------
+    boolean
+        If the state should be marked, true; else, false
+
+    Examples
+    --------
+    >>> check_marked([automaton1, automaton2], ["q1", "q2"])
+    True
+    '''
+    for s in state:
+        if s not in automaton["states"]["marked"]:
+            return False
+    return True

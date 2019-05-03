@@ -37,7 +37,7 @@ def get_states(states, chosen_so_far = []):
     return macro_states
 
 def format_state(states):
-    '''Creates a macro-state containing all of the states passed in.
+    '''Creates a macro-state string containing all of the states passed in.
 
     Parameters
     ----------
@@ -61,6 +61,34 @@ def format_state(states):
         str += state + ", "
     str = str[0:-2] # take off last comma
     str += ")"
+    return str
+
+def format_state_set(states):
+    '''Creates a macro-state string containing all of the states passed in as a
+    set.
+
+    Parameters
+    ----------
+    states : array of strings
+        Array of all the states to put together
+
+    Yields
+    ------
+    string
+        The string representing the macro-state
+
+    Examples
+    --------
+    >>> print(format_state(["q1"]))
+    "(q1)"
+    >>> print(format_state(["q1", "q2", "(q3, q4)"]))
+    "{q1, q2, (q3, q4)}"
+    '''
+    str = "{"
+    for state in states:
+        str += state + ", "
+    str = str[0:-2] # take off last comma
+    str += "}"
     return str
 
 def format_transition(state, event):
