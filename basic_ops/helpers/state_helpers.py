@@ -15,8 +15,8 @@ def get_initial(automata, initial_so_far=[]):
         should always be empty when used by a user; the parameter is only used
         for recursive calls.
 
-    Yields
-    ------
+    Returns
+    -------
     list
         A list of all possible initial state combinations
 
@@ -59,8 +59,8 @@ def check_marked(automata, state, agent_index=0):
     agent_index : int
         The index of the agent to see if the state should be marked
 
-    Yields
-    ------
+    Returns
+    -------
     boolean
         If the state should be marked, true; else, false
 
@@ -94,8 +94,8 @@ def check_marked_inverse(automaton, state, agent_index=0):
     agent_index : int
         The index of the agent to see if the state should be marked
 
-    Yields
-    ------
+    Returns
+    -------
     boolean
         If the state should be marked, true; else, false
 

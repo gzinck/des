@@ -18,8 +18,8 @@ def get_valid_control_actions(automaton, state):
     state : string
         The current state of the automaton
 
-    Yields
-    ------
+    Returns
+    -------
     list of lists
         A list of possible control actions, which are in turn lists of events
         (strings) that are allowed

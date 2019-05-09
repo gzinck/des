@@ -14,8 +14,8 @@ def get_states(states, chosen_so_far=[]):
     states : array of strings, or array of arrays of strings
         Array of all states (or possible states)
 
-    Yields
-    ------
+    Returns
+    -------
     Array of arrays of strings
         All possible macro-states
 
@@ -46,8 +46,8 @@ def format_state(states):
     states : array of strings
         Array of all the states to put together
 
-    Yields
-    ------
+    Returns
+    -------
     string
         The string representing the macro-state
 
@@ -75,8 +75,8 @@ def format_state_set(states):
     states : array of strings
         Array of all the states to put together
 
-    Yields
-    ------
+    Returns
+    -------
     string
         The string representing the macro-state
 
@@ -107,8 +107,8 @@ def format_transition(state, event):
     event : string
         The event prompting the state change
 
-    Yields
-    ------
+    Returns
+    -------
     string
         The string representing the transition's key for the dictionary
 

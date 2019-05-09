@@ -20,8 +20,8 @@ def find_next_state(automata, state, event):
     event : string
         The event which progresses the system to the next state
 
-    Yields
-    ------
+    Returns
+    -------
     list
         The next states for each of the automata, given the event
 
@@ -64,8 +64,8 @@ def check_marked_agents(automata, states):
     states : list of strings
         The current state in each of the automata, respectively
 
-    Yields
-    ------
+    Returns
+    -------
     boolean
         True if the resulting state in the arena should be marked.
     """

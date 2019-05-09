@@ -10,8 +10,8 @@ def product_events(automata):
     automata : array of dictionaries
         Array of all of the automata which should be composed
 
-    Yields
-    ------
+    Returns
+    -------
     dict
         Dictionary containing the intersection for all events, controllable
         events, and observable events.
@@ -84,8 +84,8 @@ def product_transitions(automata, all_events):
         Array of all events that are defined for the automata (even those that
         are only defined in one of them)
 
-    Yields
-    ------
+    Returns
+    -------
     dict
         All of the states and transitions that are defined in a composed product
         of the automata

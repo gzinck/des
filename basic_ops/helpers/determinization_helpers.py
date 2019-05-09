@@ -16,8 +16,8 @@ def get_unobservable_reach(automaton, states, alphabet):
     alphabet : list
         The list of all events that are observable
 
-    Yields
-    ------
+    Returns
+    -------
     list
         All states accessible from the provided states
 
@@ -64,8 +64,8 @@ def determinize_transitions(automaton, alphabet):
     alphabet : list
         The list of all events that are observable
 
-    Yields
-    ------
+    Returns
+    -------
     dict
         All of the states and transitions that are defined in a composed union
         of the automata
