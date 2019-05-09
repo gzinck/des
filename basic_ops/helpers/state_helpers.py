@@ -10,6 +10,10 @@ def get_initial(automata, initial_so_far=[]):
     ----------
     automata : array of dictionaries
         Array of all of the automata which should be composed
+    initial_so_far : array of strings
+        Array of all the initial states which have already been chosen. This
+        should always be empty when used by a user; the parameter is only used
+        for recursive calls.
 
     Yields
     ------
@@ -42,15 +46,18 @@ def get_initial(automata, initial_so_far=[]):
     return result
 
 
-def check_marked(automata, state):
+def check_marked(automata, state, agent_index=0):
     '''Checks if a state should be marked, where the state is a macro-state
     composed of states from the automata passed as a parameter. If at least one
-    automaton has the state marked, returns true.
+    automaton has the state marked, returns true. It only does this with respect
+    to one agent's perspective, so this must be repeated for every agent.
 
     Parameters
     ----------
     automata : array of dictionaries
         Array of all of the automata which should be composed
+    agent_index : int
+        The index of the agent to see if the state should be marked
 
     Yields
     ------
@@ -63,15 +70,17 @@ def check_marked(automata, state):
     True
     '''
     for i in range(len(automata)):
-        if state[i] in automata[i]["states"]["marked"]:
+        if state[i] in automata[i]["states"]["marked"][agent_index]:
             return True
     return False
 
 
-def check_marked_inverse(automaton, state):
+def check_marked_inverse(automaton, state, agent_index=0):
     '''Checks if a state should be marked, where the state is a macro-state
     composed of states from the SINGLE automaton passed as a parameter. If at
-    least one component state is NOT marked, returns false.
+    least one component state is NOT marked, returns false. It only does this
+    with respect to one agent's perspective, so this must be repeated for every
+    agent.
     This function exists for checking for opacity, since opacity is maintained
     when there is at least one state which does not give away the secret (i.e.,
     there is at least one state which is not marked).
@@ -80,6 +89,8 @@ def check_marked_inverse(automaton, state):
     ----------
     automata : dictionary
         The automaton to check
+    agent_index : int
+        The index of the agent to see if the state should be marked
 
     Yields
     ------
@@ -92,6 +103,6 @@ def check_marked_inverse(automaton, state):
     True
     '''
     for s in state:
-        if s not in automaton["states"]["marked"]:
+        if s not in automaton["states"]["marked"][agent_index]:
             return False
     return True

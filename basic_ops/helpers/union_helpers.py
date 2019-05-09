@@ -3,7 +3,7 @@ import basic_ops.helpers.state_helpers as state_helper
 
 
 def union_events(automata):
-    '''Unions all of the events of multiple automata
+    """Unions all of the events of multiple automata
 
     Parameters
     ----------
@@ -30,7 +30,7 @@ def union_events(automata):
         ],
         "attacker": ["a", "b"]
     }
-    '''
+    """
     if len(automata) < 2:
         raise Exception("Union requires at least two automata in a list as input.")
 
@@ -63,7 +63,7 @@ def union_events(automata):
 
 
 def union_transitions(automata, all_events):
-    '''Unions the transitions of multiple automata. That is, a transition is
+    """Unions the transitions of multiple automata. That is, a transition is
     defined from a state if and only if all automata that have such an event
     defined have a transition defined. This also applies when only one
     automaton has a transition defined.
@@ -99,16 +99,17 @@ def union_transitions(automata, all_events):
             "all": [],
             "initial": [],
             "bad": [],
-            "marked": []
+            "marked": [[]]
         },
         "transitions": {
             "all": {},
             "bad": {}
         }
     }
-    '''
-
-    marked = []  # The marked states in the automaton
+    """
+    # We'll compute marked states for each of the agents
+    num_agents = len(automata[0]["states"]["marked"])
+    marked = [[]] * num_agents  # The marked states init to empty
 
     # Get the initial states, mark them as visited (must convert to strings
     # in order to hash them)
@@ -117,8 +118,9 @@ def union_transitions(automata, all_events):
 
     # Add initial states to marked, if needed
     for i in range(len(initial_states)):
-        if state_helper.check_marked(automata, initial_states[i]):
-            marked.append(initial_strings[i])
+        for agent in range(num_agents):
+            if state_helper.check_marked(automata, initial_states[i], agent):
+                marked[agent].append(initial_strings[i])
 
     transitions = {}  # The transitions for the resulting automaton
 
@@ -164,8 +166,9 @@ def union_transitions(automata, all_events):
                         queue.append(next_states[i])
                         visited.add(next_strings[i])
                         # Check if should be marked, if so, add to marked.
-                        if state_helper.check_marked(automata, next_states[i]):
-                            marked.append(next_strings[i])
+                        for agent in range(num_agents):
+                            if state_helper.check_marked(automata, next_states[i], agent):
+                                marked[agent].append(next_strings[i])
     return {
         "states": {
             "all": list(visited),
