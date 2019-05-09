@@ -76,7 +76,7 @@ def construct_arena(automaton):
         new_events = new_events.union(events)
         for event in events:
             # Add this event to the system
-            event_str = str_helper.format_state_set(event) # Turns it into a string
+            event_str = str_helper.format_state_set(event)  # Turns it into a string
             events.add(event_str)
 
             # Add the transition from v1 to the state in v2
@@ -101,12 +101,12 @@ def construct_arena(automaton):
     # already visible to the controller
     all_events = list(new_events.union(automaton["events"]["observable"][0]))
     cont_events = automaton["events"]["observable"].copy()
-    cont_events[0] = list(new_events) # The controller can only control new ones
+    cont_events[0] = list(new_events)  # The controller can only control new ones
     return {
         "events": {
-            "all": all_events, # The events start off identical
-            "controllable": cont_events, # In arena, can control whatever observe
-            "observable": automaton["events"]["observable"].copy() # Same observability
+            "all": all_events,  # The events start off identical
+            "controllable": cont_events,  # In arena, can control whatever observe
+            "observable": automaton["events"]["observable"].copy()  # Same observability
         },
         "states": {
             "all": list(v1_visited.union(v2_visited)),

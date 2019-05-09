@@ -1,5 +1,6 @@
 import basic_ops.helpers.string_helpers as str_helper
 
+
 def find_next_state(automata, state, event):
     '''Gets the next state for the system composed of all automata in the
     parameter from the current state, given an event. It assumes that if

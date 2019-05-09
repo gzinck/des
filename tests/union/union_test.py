@@ -4,6 +4,7 @@ import basic_ops.helpers.string_helpers as helper
 import json
 from basic_ops.union import union
 
+
 class TestUnion(unittest.TestCase):
 
     def setUp(self):
@@ -33,7 +34,6 @@ class TestUnion(unittest.TestCase):
         This ensures that all pre-built test cases work.
         '''
         for i in range(len(self.automata1)):
-
             # Get the answer
             ans = None
             with open("tests/union/union_test_cases/union_test_" + str(i + 1) + ".out") as f:
@@ -48,6 +48,7 @@ class TestUnion(unittest.TestCase):
 
             # Check answer, making sure it's OK if elements not in order
             self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))
+
 
 if __name__ == "__main__":
     unittest.main()

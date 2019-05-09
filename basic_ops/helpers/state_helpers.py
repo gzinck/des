@@ -1,4 +1,4 @@
-def get_initial(automata, initial_so_far = []):
+def get_initial(automata, initial_so_far=[]):
     '''Gets all possible combinations of intitial states for two the
     automata. It does this recursively to find all combinations.
 
@@ -38,8 +38,9 @@ def get_initial(automata, initial_so_far = []):
         initial_so_far[index] = state
         # Add on to the list of possible initial states
         result += get_initial(automata, initial_so_far)
-    initial_so_far.pop() # Remove the element we added
+    initial_so_far.pop()  # Remove the element we added
     return result
+
 
 def check_marked(automata, state):
     '''Checks if a state should be marked, where the state is a macro-state
@@ -65,6 +66,7 @@ def check_marked(automata, state):
         if state[i] in automata[i]["states"]["marked"]:
             return True
     return False
+
 
 def check_marked_inverse(automaton, state):
     '''Checks if a state should be marked, where the state is a macro-state

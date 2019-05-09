@@ -1,6 +1,7 @@
 import basic_ops.helpers.string_helpers as helper
 import basic_ops.helpers.state_helpers as state_helper
 
+
 def product_events(automata):
     '''Intersects all of the events of multiple automata
 
@@ -62,6 +63,7 @@ def product_events(automata):
         "attacker": list(attacker_events)
     }
 
+
 def product_transitions(automata, all_events):
     '''Performs product on the transitions of multiple automata. That is, a
     transition is defined from a state if and only if all automata have
@@ -89,7 +91,7 @@ def product_transitions(automata, all_events):
         of the automata
     '''
 
-    marked = [] # The marked states in the automaton
+    marked = []  # The marked states in the automaton
 
     # Get the initial states, mark them as visited (must convert to strings
     # in order to hash them)
@@ -101,7 +103,7 @@ def product_transitions(automata, all_events):
         if state_helper.check_marked(automata, initial_states[i]):
             marked.append(initial_strings[i])
 
-    transitions = {} # The transitions for the resulting automaton
+    transitions = {}  # The transitions for the resulting automaton
 
     # Go through all states systematically
     queue = initial_states.copy()
@@ -130,7 +132,7 @@ def product_transitions(automata, all_events):
                 if transition in a["transitions"]["all"]:
                     next_state.append(a["transitions"]["all"][transition])
                 else:
-                    failure = True # Then it should not be defined
+                    failure = True  # Then it should not be defined
                 i += 1
 
             # If all automata had the transition defined, then add it

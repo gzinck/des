@@ -4,6 +4,7 @@ import basic_ops.helpers.string_helpers as helper
 import json
 from basic_ops.product import product
 
+
 class TestProduct(unittest.TestCase):
     def setUp(self):
         filenames1 = [
@@ -32,7 +33,6 @@ class TestProduct(unittest.TestCase):
         This ensures that all pre-built test cases work.
         '''
         for i in range(len(self.automata1)):
-
             # Get the answer
             ans = None
             with open("tests/product/product_test_cases/product_test_" + str(i + 1) + ".out") as f:

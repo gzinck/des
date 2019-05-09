@@ -1,6 +1,7 @@
 from basic_ops.helpers.string_helpers import format_transition, format_state_set
 from basic_ops.helpers.state_helpers import check_marked_inverse
 
+
 def get_unobservable_reach(automaton, states, alphabet):
     '''Gets all states that are accessible from some macro-state using
     unobservable events (i.e., events that are not part of the input alphabet).
@@ -45,6 +46,7 @@ def get_unobservable_reach(automaton, states, alphabet):
                         accessible.add(state)
                         queue.append(state)
     return list(accessible)
+
 
 def determinize_transitions(automaton, alphabet):
     '''Creates the transition function and state space for the determinized

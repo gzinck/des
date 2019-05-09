@@ -1,6 +1,7 @@
 from itertools import combinations, chain
 import basic_ops.helpers.string_helpers as str_helper
 
+
 def get_valid_control_actions(automaton, state):
     '''This gets all possible valid control actions for an automaton at a given
     state. That is, it finds all possible actions for the automaton from the
@@ -28,7 +29,7 @@ def get_valid_control_actions(automaton, state):
     >>> print(get_valid_control_actions(automaton, "{q0, q1, q2}"))
     [["a"], ["b"], ["a", "b"]]
     '''
-    all_events = automaton["events"]["all"] # TODO: SHOULD THIS BE CHANGED?
+    all_events = automaton["events"]["all"]  # TODO: SHOULD THIS BE CHANGED?
     valid_events = []
     for event in all_events:
         trans = str_helper.format_transition(state, event)

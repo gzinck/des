@@ -1,4 +1,3 @@
-
 '''
 This runs all tests for the program.
 '''

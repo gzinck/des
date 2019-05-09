@@ -2,6 +2,7 @@ import unittest
 from structure_validation.automaton_validator import validate
 import json
 
+
 class TestAutomatonValidation(unittest.TestCase):
     def setUp(self):
         filenames_good = [

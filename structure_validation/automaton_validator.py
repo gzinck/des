@@ -85,7 +85,8 @@ def validate(automaton):
                     raise Exception("The only permitted type inside the " + x + " list-of-lists is a string")
 
     if len(events["observable"]) != len(events["controllable"]):
-        raise Exception("There must be the same number of lists within both observable and controllable (one for each player in the system)")
+        raise Exception(
+            "There must be the same number of lists within both observable and controllable (one for each player in the system)")
 
     # 3: Transitions
     trans = automaton["transitions"]

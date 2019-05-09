@@ -1,6 +1,7 @@
 import basic_ops.helpers.string_helpers as helper
 import basic_ops.helpers.state_helpers as state_helper
 
+
 def union_events(automata):
     '''Unions all of the events of multiple automata
 
@@ -60,6 +61,7 @@ def union_events(automata):
         "attacker": list(attacker_events)
     }
 
+
 def union_transitions(automata, all_events):
     '''Unions the transitions of multiple automata. That is, a transition is
     defined from a state if and only if all automata that have such an event
@@ -106,7 +108,7 @@ def union_transitions(automata, all_events):
     }
     '''
 
-    marked = [] # The marked states in the automaton
+    marked = []  # The marked states in the automaton
 
     # Get the initial states, mark them as visited (must convert to strings
     # in order to hash them)
@@ -118,7 +120,7 @@ def union_transitions(automata, all_events):
         if state_helper.check_marked(automata, initial_states[i]):
             marked.append(initial_strings[i])
 
-    transitions = {} # The transitions for the resulting automaton
+    transitions = {}  # The transitions for the resulting automaton
 
     # Go through all states systematically
     queue = initial_states.copy()
@@ -145,7 +147,7 @@ def union_transitions(automata, all_events):
                     if transition in a["transitions"]["all"]:
                         next_state.append(a["transitions"]["all"][transition])
                     else:
-                        failure = True # Not defined
+                        failure = True  # Not defined
                 else:
                     # Then we don't change states
                     next_state.append([prev_state])

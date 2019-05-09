@@ -1,5 +1,6 @@
 import basic_ops.helpers.product_helpers as helper
 
+
 def product(automata):
     '''Composes two or more finite state automata.
 

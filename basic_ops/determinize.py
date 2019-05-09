@@ -1,7 +1,8 @@
 from basic_ops.helpers.event_helpers import intersect_events
 from basic_ops.helpers.determinization_helpers import determinize_transitions
 
-def determinize(automaton, alphabet = None):
+
+def determinize(automaton, alphabet=None):
     '''Computes the determinized version of the automaton.
     That is, it first determines the initial macro-state, composed of the
     unobservable reach from the original intial state (with respect to the
