@@ -109,7 +109,7 @@ def union_transitions(automata, all_events):
     """
     # We'll compute marked states for each of the agents
     num_agents = len(automata[0]["states"]["marked"])
-    marked = [[]] * num_agents  # The marked states init to empty
+    marked = [[] for x in range(num_agents)]  # The marked states init to empty
 
     # Get the initial states, mark them as visited (must convert to strings
     # in order to hash them)

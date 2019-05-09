@@ -87,6 +87,7 @@ def format_state_set(states):
     >>> print(format_state(["q1", "q2", "(q3, q4)"]))
     "{q1, q2, (q3, q4)}"
     """
+    states.sort()
     str = "{"
     for state in states:
         str += state + ", "

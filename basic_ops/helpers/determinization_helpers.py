@@ -89,7 +89,7 @@ def determinize_transitions(automaton, alphabet):
     """
     # We'll compute marked states for each of the agents
     num_agents = len(automaton["states"]["marked"])
-    marked = [[]] * num_agents  # The marked states init to empty
+    marked = [[] for x in range(num_agents)]  # The marked states init to empty
 
     # Get the old transitions
     old_transitions = automaton["transitions"]["all"]

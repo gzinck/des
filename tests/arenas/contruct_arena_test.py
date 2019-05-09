@@ -2,13 +2,13 @@ import unittest
 import basic_ops.helpers.convert_to_sets as converter
 import basic_ops.helpers.string_helpers as helper
 import json
-from basic_ops.determinize import determinize
+from arenas.construct_arena import construct_arena
 
 
-class TestProduct(unittest.TestCase):
+class TestConstructArena(unittest.TestCase):
     def setUp(self):
         filenames = [
-            "tests/determinize/determinize_test_cases/determinize_test_1.in"
+            "tests/arenas/arenas_test_cases/arenas_test_1.in"
         ]
 
         # First automaton for each test case
@@ -24,14 +24,14 @@ class TestProduct(unittest.TestCase):
         for i in range(len(self.automata)):
             # Get the answer
             ans = None
-            with open("tests/determinize/determinize_test_cases/determinize_test_" + str(i + 1) + ".out") as f:
+            with open("tests/arenas/arenas_test_cases/arenas_test_" + str(i + 1) + ".out") as f:
                 ans = json.load(f)
 
-            # Get the determinization of the appropriate automaton
-            result = determinize(self.automata[i])
+            # Get the arena for the appropriate automaton
+            result = construct_arena(self.automata[i])
 
             # Print
-            # helper.pretty_print(result)
+            # helper.pretty_print(result["states"]["bad"])
             # helper.pretty_print(ans)
 
             # Check answer, making sure it's OK if elements not in order
