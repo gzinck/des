@@ -8,11 +8,17 @@ Allison University (Sackville, Canada).
 ## Current Features
 
 - Composing two automata with union and product operations
+- Determinizing an automaton
+- Verifying the JSON for an automaton to ensure it is a valid automaton, based on
+the specification [here](https://github.com/gzinck/des/wiki/Input-Specification).
+- Creation of an arena, as per *Leaking Secrets* (Ricker, Marchand, \&
+Keroglou, 2019).
 
 ## Upcoming Features
 
-- Checking to make sure that every time a user gives an automaton, it is
-formatted appropriately
+- An interface to allow the user to work with the software. In its current state,
+it only runs tests using python's unittest module, pulling in automata from JSON
+files.
 
 ## Input Specification
 
