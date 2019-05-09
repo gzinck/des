@@ -38,9 +38,11 @@ def determinize(automaton, alphabet=None):
     '''
     if alphabet == None:
         alphabet = automaton["events"]["attacker"]
-    new_automaton = {}
     # First, get all events in the new automaton by intersecting sets
-    new_automaton["events"] = intersect_events(automaton, alphabet)
+    events = intersect_events(automaton, alphabet)
     # Then, update the transition function and add all of the states
-    new_automaton.update(determinize_transitions(automaton, alphabet))
-    return new_automaton
+    transitions = determinize_transitions(automaton, alphabet)
+    return {
+        "events": events,
+        **transitions
+    }
