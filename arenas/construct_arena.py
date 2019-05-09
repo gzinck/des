@@ -2,7 +2,6 @@ from basic_ops.determinize import determinize
 from arenas.helpers.control_actions import get_valid_control_actions
 from arenas.helpers.state_helpers import find_next_state, check_marked_agents
 import basic_ops.helpers.string_helpers as str_helper
-import json
 
 
 def construct_arena(automaton):
