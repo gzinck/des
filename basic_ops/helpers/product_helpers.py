@@ -3,7 +3,7 @@ import basic_ops.helpers.state_helpers as state_helper
 
 
 def product_events(automata):
-    '''Intersects all of the events of multiple automata
+    """Intersects all of the events of multiple automata
 
     Parameters
     ----------
@@ -30,7 +30,7 @@ def product_events(automata):
         ],
         "attacker": ["a", "b"]
     }
-    '''
+    """
     if len(automata) < 2:
         raise Exception("Product requires at least two automata in a list as input.")
 
@@ -65,7 +65,7 @@ def product_events(automata):
 
 
 def product_transitions(automata, all_events):
-    '''Performs product on the transitions of multiple automata. That is, a
+    """Performs product on the transitions of multiple automata. That is, a
     transition is defined from a state if and only if all automata have
     the event defined (no private events).
 
@@ -89,19 +89,16 @@ def product_transitions(automata, all_events):
     dict
         All of the states and transitions that are defined in a composed product
         of the automata
-    '''
+    """
 
-    marked = []  # The marked states in the automaton
+    # We'll compute marked states for each of the agents
+    num_agents = len(automata[0]["states"]["marked"])
+    marked = [[]] * num_agents  # The marked states init to empty
 
     # Get the initial states, mark them as visited (must convert to strings
     # in order to hash them)
     initial_states = state_helper.get_initial(automata)
     initial_strings = [helper.format_state(s) for s in initial_states]
-
-    # Add initial states to marked, if needed
-    for i in range(len(initial_states)):
-        if state_helper.check_marked(automata, initial_states[i]):
-            marked.append(initial_strings[i])
 
     transitions = {}  # The transitions for the resulting automaton
 
@@ -112,6 +109,13 @@ def product_transitions(automata, all_events):
     # Keep going through queue until done
     while len(queue) > 0:
         curr = queue.pop(0)
+        curr_str = helper.format_state(curr)
+
+        # Add the marked states for each of the agents
+        for agent in range(num_agents):
+            if state_helper.check_marked(automata, curr, agent):
+                marked[agent].append(curr_str)
+
         # Go through every event in alphabet
         for event in all_events:
             # Track if the transition does NOT exist in an automaton where it
@@ -148,9 +152,6 @@ def product_transitions(automata, all_events):
                         # Then add this state to process next
                         queue.append(next_states[i])
                         visited.add(next_strings[i])
-                        # Check if should be marked, if so, add to marked.
-                        if state_helper.check_marked(automata, next_states[i]):
-                            marked.append(next_strings[i])
     return {
         "states": {
             "all": list(visited),

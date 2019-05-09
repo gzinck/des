@@ -1,4 +1,4 @@
-import basic_ops.helpers.product_helpers as helper
+from basic_ops.helpers.product_helpers import product_transitions, product_events
 
 
 def product(automata):
@@ -41,10 +41,11 @@ def product(automata):
         # Dictionary for an automaton
     }
     '''
-    new_automaton = {}
-    # First, get all events in the new automaton by unioning sets
-    new_automaton["events"] = helper.product_events(automata)
-    # Then, update the transition function and add all of the states
-    new_automaton.update(helper.product_transitions(automata, new_automaton["events"]["all"]))
+    events = product_events(automata)
+    transitions = product_transitions(automata, events["all"])
+    new_automaton = {
+        "events": events,
+        **transitions
+    }
 
     return new_automaton
