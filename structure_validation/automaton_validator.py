@@ -40,12 +40,24 @@ def validate(automaton):
     if not isinstance(states, dict):
         raise Exception("The states subtree must be a dictionary structure")
 
-    for x in ["all", "initial", "marked", "bad"]:
+    for x in ["all", "initial", "bad"]:
         if x not in states:
             raise Exception("The states subtree must have a key for " + x)
         for state in states[x]:
             if not isinstance(state, str):
                 raise Exception("The only permitted type inside the states subtree " + x + " is a string")
+
+    # marked is separate, because it's a list of lists
+    marked = states["marked"]
+    if not isinstance(marked, list):
+        raise Exception("The marked states should be a list of lists")
+
+    for x in marked:
+        if not isinstance(marked, list):
+            raise Exception("The marked states should be a list of lists")
+        for state in x:
+            if not isinstance(state, str):
+                raise Exception("The only permitted type inside the marked states list is a string")
 
     # 2: EVENTS
     events = automaton["events"]
