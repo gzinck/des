@@ -37,7 +37,6 @@ def union_events(automata):
     # The number of players with different alphabets for observing/controlling
     num_players = len(automata[0]["events"]["controllable"])
     all_events = set()
-    attacker_events = set()
     cont_events = [set()] * num_players
     obs_events = [set()] * num_players
 
@@ -45,7 +44,6 @@ def union_events(automata):
     for a in automata:
         events = a["events"]
         all_events = all_events.union(set(events["all"]))
-        attacker_events = all_events.union(set(events["attacker"]))
 
         # Add the controllable and observable events from each of the automata
         for i in range(num_players):
@@ -57,8 +55,7 @@ def union_events(automata):
         "all": list(all_events),
         # Extract the list of sets into a list of lists
         "controllable": [list(events) for events in cont_events],
-        "observable": [list(events) for events in obs_events],
-        "attacker": list(attacker_events)
+        "observable": [list(events) for events in obs_events]
     }
 
 

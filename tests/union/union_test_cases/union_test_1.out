@@ -21,7 +21,6 @@
   },
   "events": {
     "all": ["a", "c", "b"],
-    "attacker": ["a", "b", "c"],
     "controllable": [["a", "c"]],
     "observable": [["a", "c"]]
   },
