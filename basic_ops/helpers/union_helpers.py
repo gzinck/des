@@ -116,12 +116,6 @@ def union_transitions(automata, all_events):
     initial_states = state_helper.get_initial(automata)
     initial_strings = [helper.format_state(s) for s in initial_states]
 
-    # Add initial states to marked, if needed
-    for i in range(len(initial_states)):
-        for agent in range(num_agents):
-            if state_helper.check_marked(automata, initial_states[i], agent):
-                marked[agent].append(initial_strings[i])
-
     transitions = {}  # The transitions for the resulting automaton
 
     # Go through all states systematically
@@ -131,6 +125,13 @@ def union_transitions(automata, all_events):
     # Keep going through queue until done
     while len(queue) > 0:
         curr = queue.pop(0)
+        curr_str = helper.format_state(curr)
+
+        # Add the state to marked, if needed, for each agent
+        for agent in range(num_agents):
+            if state_helper.check_marked(automata, curr, agent):
+                marked[agent].append(curr_str)
+
         # Go through every event in alphabet
         for event in all_events:
             # Track if the transition does NOT exist in an automaton where it
@@ -165,10 +166,6 @@ def union_transitions(automata, all_events):
                         # Then add this state to process next
                         queue.append(next_states[i])
                         visited.add(next_strings[i])
-                        # Check if should be marked, if so, add to marked.
-                        for agent in range(num_agents):
-                            if state_helper.check_marked(automata, next_states[i], agent):
-                                marked[agent].append(next_strings[i])
     return {
         "states": {
             "all": list(visited),
