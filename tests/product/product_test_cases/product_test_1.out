@@ -19,7 +19,6 @@
   },
   "events": {
     "all": ["a"],
-    "attacker": [],
     "controllable": [
       []
     ],

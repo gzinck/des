@@ -37,7 +37,7 @@ def determinize(automaton, alphabet=None):
     }
     """
     if alphabet == None:
-        alphabet = automaton["events"]["attacker"]
+        alphabet = automaton["events"]["observable"][0]
     # First, get all events in the new automaton by intersecting sets
     events = intersect_events(automaton, alphabet)
     # Then, update the transition function and add all of the states

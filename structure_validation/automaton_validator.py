@@ -64,11 +64,11 @@ def validate(automaton):
     if not isinstance(events, dict):
         raise Exception("The events subtree must be a dictionary structure")
 
-    for x in ["all", "controllable", "observable", "attacker"]:
+    for x in ["all", "controllable", "observable"]:
         if x not in events:
             raise Exception("The events subtree must have a key for " + x)
 
-    for x in ["all", "attacker"]:
+    for x in ["all"]:
         for event in events[x]:
             if not isinstance(event, str):
                 raise Exception("The only permitted type inside the events subtree " + x + " is a string")

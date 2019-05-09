@@ -14,8 +14,7 @@
 		],
 		"observable": [
 			["a"]
-		],
-		"attacker": ["a"]
+		]
 	},
 	"transitions": {
 		"all": {

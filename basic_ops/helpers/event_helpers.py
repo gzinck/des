@@ -44,9 +44,10 @@ def intersect_events(automaton, alphabet):
     """
     allowed = set(alphabet)
     events = automaton["events"]
-    new_events = {}
-    new_events["all"] = list(set(events["all"]).intersection(allowed))
-    new_events["attacker"] = list(set(events["attacker"]).intersection(allowed))
-    new_events["controllable"] = [list(set(x).intersection(allowed)) for x in events["controllable"]]
-    new_events["observable"] = [list(set(x).intersection(allowed)) for x in events["observable"]]
-    return new_events
+    return {
+        "all": list(set(events["all"]).intersection(allowed)),
+        "controllable": [list(set(x).intersection(allowed)) for x in
+                         events["controllable"]],
+        "observable": [list(set(x).intersection(allowed)) for x in
+                       events["observable"]]
+    }

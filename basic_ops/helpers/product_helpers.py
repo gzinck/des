@@ -39,7 +39,6 @@ def product_events(automata):
 
     # Initialize the sets with what's in the first automaton
     all_events = set(automata[0]["events"]["all"])
-    attacker_events = set(automata[0]["events"]["attacker"])
     cont_events = [set(x) for x in automata[0]["events"]["controllable"]]
     obs_events = [set(x) for x in automata[0]["events"]["observable"]]
 
@@ -47,7 +46,6 @@ def product_events(automata):
     for a in automata[1:]:
         events = a["events"]
         all_events = all_events.intersection(set(events["all"]))
-        attacker_events = all_events.intersection(set(events["attacker"]))
 
         # Add the controllable and observable events from each of the automata
         for i in range(num_players):
@@ -59,8 +57,7 @@ def product_events(automata):
         "all": list(all_events),
         # Extract the list of sets into a list of lists
         "controllable": [list(events) for events in cont_events],
-        "observable": [list(events) for events in obs_events],
-        "attacker": list(attacker_events)
+        "observable": [list(events) for events in obs_events]
     }
 
 
