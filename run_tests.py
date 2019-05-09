@@ -1,6 +1,6 @@
-'''
+"""
 This runs all tests for the program.
-'''
+"""
 import unittest
 
 # Import the test cases to use

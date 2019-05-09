@@ -2,7 +2,7 @@ import pprint
 
 
 def get_states(states, chosen_so_far=[]):
-    '''A list of current states for multiple automata in a composed system (i.e.,
+    """A list of current states for multiple automata in a composed system (i.e.,
     a "macro-state") has some states which are non-deterministic: that is, the
     state might be ["q1", ["q2", "q3"]]. We want to find all distinct states,
     so we want ["q1", "q2"] and ["q1", "q3"]. This becomes a major task when
@@ -23,7 +23,7 @@ def get_states(states, chosen_so_far=[]):
     --------
     >>> print(get_states(["q1", ["q2", "q3"]]))
     [["q1", "q2"], ["q1", "q3"]]
-    '''
+    """
     index = len(chosen_so_far)
 
     # Base case
@@ -39,7 +39,7 @@ def get_states(states, chosen_so_far=[]):
 
 
 def format_state(states):
-    '''Creates a macro-state string containing all of the states passed in.
+    """Creates a macro-state string containing all of the states passed in.
 
     Parameters
     ----------
@@ -57,7 +57,7 @@ def format_state(states):
     "(q1)"
     >>> print(format_state(["q1", "q2", "(q3, q4)"]))
     "(q1, q2, (q3, q4))"
-    '''
+    """
     str = "("
     for state in states:
         str += state + ", "
@@ -67,7 +67,7 @@ def format_state(states):
 
 
 def format_state_set(states):
-    '''Creates a macro-state string containing all of the states passed in as a
+    """Creates a macro-state string containing all of the states passed in as a
     set.
 
     Parameters
@@ -86,7 +86,7 @@ def format_state_set(states):
     "(q1)"
     >>> print(format_state(["q1", "q2", "(q3, q4)"]))
     "{q1, q2, (q3, q4)}"
-    '''
+    """
     str = "{"
     for state in states:
         str += state + ", "
@@ -96,7 +96,7 @@ def format_state_set(states):
 
 
 def format_transition(state, event):
-    '''Formats a state and event into the proper format for a transition,
+    """Formats a state and event into the proper format for a transition,
     which is used as a key in the transition dictionary.
 
     Parameters
@@ -117,13 +117,13 @@ def format_transition(state, event):
     "q1->a"
     >>> print(format_transition("(q1, q5)", "c"))
     "(q1, q5)->c"
-    '''
+    """
     return state + "->" + event
 
 
 def pretty_print(automaton):
-    '''
+    """
     Formats an automaton in an attractive way and prints as text.
-    '''
+    """
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(automaton)

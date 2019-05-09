@@ -2,7 +2,7 @@ from basic_ops.helpers.product_helpers import product_transitions, product_event
 
 
 def product(automata):
-    '''Composes two or more finite state automata.
+    """Composes two or more finite state automata.
 
     Specifically, the product operation synchronizes all of the automata on their
     common events and prevents any private events.
@@ -40,7 +40,7 @@ def product(automata):
     {
         # Dictionary for an automaton
     }
-    '''
+    """
     events = product_events(automata)
     transitions = product_transitions(automata, events["all"])
     new_automaton = {

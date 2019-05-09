@@ -18,9 +18,9 @@ class TestProduct(unittest.TestCase):
                 self.automata[i] = json.load(f)
 
     def test_determinize(self):
-        '''
+        """
         This ensures that all pre-built test cases work.
-        '''
+        """
         for i in range(len(self.automata)):
             # Get the answer
             ans = None

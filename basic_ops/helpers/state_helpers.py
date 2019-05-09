@@ -1,5 +1,5 @@
 def get_initial(automata, initial_so_far=[]):
-    '''Gets all possible combinations of intitial states for two the
+    """Gets all possible combinations of intitial states for two the
     automata. It does this recursively to find all combinations.
 
     Note
@@ -27,7 +27,7 @@ def get_initial(automata, initial_so_far=[]):
     [
         "(q1, q3)", "(q1, q4)", "(q2, q3)", "(q2, q4)"
     ]
-    '''
+    """
     # If we already have a fully defined initial state, format and return
     if len(initial_so_far) == len(automata):
         return [initial_so_far.copy()]
@@ -47,7 +47,7 @@ def get_initial(automata, initial_so_far=[]):
 
 
 def check_marked(automata, state, agent_index=0):
-    '''Checks if a state should be marked, where the state is a macro-state
+    """Checks if a state should be marked, where the state is a macro-state
     composed of states from the automata passed as a parameter. If at least one
     automaton has the state marked, returns true. It only does this with respect
     to one agent's perspective, so this must be repeated for every agent.
@@ -68,7 +68,7 @@ def check_marked(automata, state, agent_index=0):
     --------
     >>> check_marked([automaton1, automaton2], ["q1", "q2"])
     True
-    '''
+    """
     for i in range(len(automata)):
         if state[i] in automata[i]["states"]["marked"][agent_index]:
             return True
@@ -76,7 +76,7 @@ def check_marked(automata, state, agent_index=0):
 
 
 def check_marked_inverse(automaton, state, agent_index=0):
-    '''Checks if a state should be marked, where the state is a macro-state
+    """Checks if a state should be marked, where the state is a macro-state
     composed of states from the SINGLE automaton passed as a parameter. If at
     least one component state is NOT marked, returns false. It only does this
     with respect to one agent's perspective, so this must be repeated for every
@@ -101,7 +101,7 @@ def check_marked_inverse(automaton, state, agent_index=0):
     --------
     >>> check_marked([automaton1, automaton2], ["q1", "q2"])
     True
-    '''
+    """
     for s in state:
         if s not in automaton["states"]["marked"][agent_index]:
             return False

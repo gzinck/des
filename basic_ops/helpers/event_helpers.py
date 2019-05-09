@@ -1,5 +1,5 @@
 def intersect_events(automaton, alphabet):
-    '''Ensures that the automaton only has events in the provided alphabet.
+    """Ensures that the automaton only has events in the provided alphabet.
 
     Parameters
     ----------
@@ -41,7 +41,7 @@ def intersect_events(automaton, alphabet):
         ],
         "attacker": ["a"]
     }
-    '''
+    """
     allowed = set(alphabet)
     events = automaton["events"]
     new_events = {}

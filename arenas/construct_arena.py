@@ -6,7 +6,7 @@ import basic_ops.helpers.string_helpers as str_helper
 
 
 def construct_arena(automaton):
-    '''Constructs an arena from an automaton, as specified in (Ricker, Marchand,
+    """Constructs an arena from an automaton, as specified in (Ricker, Marchand,
     & Keroglou, 2019). The arena has the same form as a regular automaton,
     except with a few extra features. The "states" section has two extra lists:
     "v1" and "v2", which correspond to the two distinct types of states.
@@ -39,7 +39,7 @@ def construct_arena(automaton):
     {
         # Dictionary for the arena with the added features specified above
     }
-    '''
+    """
     # Get the three observers
     events = automaton["events"]
     controller = determinize(automaton, events["observable"][0])
