@@ -87,8 +87,10 @@ def check_marked_inverse(automaton, state, agent_index=0):
 
     Parameters
     ----------
-    automata : dictionary
+    automaton : dictionary
         The automaton to check
+    state : list of strings
+        The states in the automaton to check for determinization
     agent_index : int
         The index of the agent to see if the state should be marked
 

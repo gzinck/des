@@ -7,6 +7,10 @@ def find_next_state(automata, state, event):
     the event is not defined in one of the automata, then that automaton
     simply does not progress to the next stage.
 
+    Notes
+    -----
+    Assumes that all automata in the parameter are deterministic
+
     Parameters
     ----------
     automata : list of dictionaries
@@ -32,7 +36,7 @@ def find_next_state(automata, state, event):
         trans = str_helper.format_transition(state[i], event)
         # If a transition exists, add the next state. Else, stay in same state
         if trans in transitions:
-            next_state[i] = transitions[trans]
+            next_state[i] = transitions[trans][0]
         else:
             next_state[i] = state[i]
     return next_state
