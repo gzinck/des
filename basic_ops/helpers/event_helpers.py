@@ -8,8 +8,8 @@ def intersect_events(automaton, alphabet):
     alphabet : list
         The alphabet to intersect with the automaton's alphabets
 
-    Yields
-    ------
+    Returns
+    -------
     dict
         The resulting events section of the automaton
 

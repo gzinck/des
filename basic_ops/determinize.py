@@ -19,8 +19,8 @@ def determinize(automaton, alphabet=None):
         The alphabet which is considered "observable" when determinizing the
         automaton. If undefined, it equals the attacker's alphabet.
 
-    Yields
-    ------
+    Returns
+    -------
     dict
         The resulting determinized automaton
 

@@ -20,8 +20,8 @@ def product(automata):
     automata : array of dictionaries
         Array of all of the automata which should be composed
 
-    Yields
-    ------
+    Returns
+    -------
     dict
         The resulting composed automaton
 

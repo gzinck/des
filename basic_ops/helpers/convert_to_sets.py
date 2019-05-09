@@ -15,8 +15,8 @@ def convert_to_sets(structure):
     structure : complex data structure
         The structure with lists we want to convert to sets.
 
-    Yields
-    ------
+    Returns
+    -------
     structure
         The converted structure
 

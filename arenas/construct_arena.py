@@ -29,8 +29,8 @@ def construct_arena(automaton):
     automaton : dict
         The automaton for which to create an arena
 
-    Yields
-    ------
+    Returns
+    -------
     dict
         The resulting arena
 
