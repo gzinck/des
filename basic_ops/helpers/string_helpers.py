@@ -1,6 +1,7 @@
 import pprint
 
-def get_states(states, chosen_so_far = []):
+
+def get_states(states, chosen_so_far=[]):
     '''A list of current states for multiple automata in a composed system (i.e.,
     a "macro-state") has some states which are non-deterministic: that is, the
     state might be ["q1", ["q2", "q3"]]. We want to find all distinct states,
@@ -36,6 +37,7 @@ def get_states(states, chosen_so_far = []):
         chosen_so_far.pop()
     return macro_states
 
+
 def format_state(states):
     '''Creates a macro-state string containing all of the states passed in.
 
@@ -59,9 +61,10 @@ def format_state(states):
     str = "("
     for state in states:
         str += state + ", "
-    str = str[0:-2] # take off last comma
+    str = str[0:-2]  # take off last comma
     str += ")"
     return str
+
 
 def format_state_set(states):
     '''Creates a macro-state string containing all of the states passed in as a
@@ -87,9 +90,10 @@ def format_state_set(states):
     str = "{"
     for state in states:
         str += state + ", "
-    str = str[0:-2] # take off last comma
+    str = str[0:-2]  # take off last comma
     str += "}"
     return str
+
 
 def format_transition(state, event):
     '''Formats a state and event into the proper format for a transition,
@@ -115,6 +119,7 @@ def format_transition(state, event):
     "(q1, q5)->c"
     '''
     return state + "->" + event
+
 
 def pretty_print(automaton):
     '''

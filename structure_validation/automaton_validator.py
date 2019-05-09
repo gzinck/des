@@ -40,12 +40,24 @@ def validate(automaton):
     if not isinstance(states, dict):
         raise Exception("The states subtree must be a dictionary structure")
 
-    for x in ["all", "initial", "marked", "bad"]:
+    for x in ["all", "initial", "bad"]:
         if x not in states:
             raise Exception("The states subtree must have a key for " + x)
         for state in states[x]:
             if not isinstance(state, str):
                 raise Exception("The only permitted type inside the states subtree " + x + " is a string")
+
+    # marked is separate, because it's a list of lists
+    marked = states["marked"]
+    if not isinstance(marked, list):
+        raise Exception("The marked states should be a list of lists")
+
+    for x in marked:
+        if not isinstance(marked, list):
+            raise Exception("The marked states should be a list of lists")
+        for state in x:
+            if not isinstance(state, str):
+                raise Exception("The only permitted type inside the marked states list is a string")
 
     # 2: EVENTS
     events = automaton["events"]
@@ -73,7 +85,8 @@ def validate(automaton):
                     raise Exception("The only permitted type inside the " + x + " list-of-lists is a string")
 
     if len(events["observable"]) != len(events["controllable"]):
-        raise Exception("There must be the same number of lists within both observable and controllable (one for each player in the system)")
+        raise Exception(
+            "There must be the same number of lists within both observable and controllable (one for each player in the system)")
 
     # 3: Transitions
     trans = automaton["transitions"]

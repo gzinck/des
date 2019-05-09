@@ -4,6 +4,7 @@ import basic_ops.helpers.string_helpers as helper
 import json
 from basic_ops.determinize import determinize
 
+
 class TestProduct(unittest.TestCase):
     def setUp(self):
         filenames = [
@@ -21,7 +22,6 @@ class TestProduct(unittest.TestCase):
         This ensures that all pre-built test cases work.
         '''
         for i in range(len(self.automata)):
-
             # Get the answer
             ans = None
             with open("tests/determinize/determinize_test_cases/determinize_test_" + str(i + 1) + ".out") as f:
