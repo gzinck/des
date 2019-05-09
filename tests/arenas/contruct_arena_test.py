@@ -23,16 +23,16 @@ class TestConstructArena(unittest.TestCase):
         """
         for i in range(len(self.automata)):
             # Get the answer
-            # ans = None
-            # with open("tests/arenas/arenas_test_cases/construct_arena_test_" + str(i + 1) + ".out") as f:
-            #     ans = json.load(f)
+            ans = None
+            with open("tests/arenas/arenas_test_cases/arenas_test_" + str(i + 1) + ".out") as f:
+                ans = json.load(f)
 
             # Get the arena for the appropriate automaton
             result = construct_arena(self.automata[i])
 
             # Print
-            helper.pretty_print(result["states"]["bad"])
+            # helper.pretty_print(result["states"]["bad"])
             # helper.pretty_print(ans)
 
             # Check answer, making sure it's OK if elements not in order
-            # self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))
+            self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))

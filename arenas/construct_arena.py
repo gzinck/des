@@ -46,7 +46,6 @@ def construct_arena(automaton):
     # Get the three observers
     obs_events = automaton["events"]["observable"]
     controller = determinize(automaton, obs_events[0])
-    print(json.dumps(controller, sort_keys=True, indent=4))
     agent1 = determinize(automaton, obs_events[1])
     agent2 = determinize(automaton, obs_events[2])
     all_automata = [controller, agent1, agent2]
