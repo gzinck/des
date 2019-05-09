@@ -32,9 +32,9 @@ class TestAutomatonValidation(unittest.TestCase):
                 self.automata_bad[i] = json.load(f)
 
     def test_product(self):
-        '''
+        """
         This ensures that all pre-built test cases work.
-        '''
+        """
         # Good ones should return true
         for a in self.automata_good:
             self.assertTrue(validate(a))

@@ -2,7 +2,7 @@ import basic_ops.helpers.union_helpers as helper
 
 
 def union(automata):
-    '''Composes two or more finite state automata.
+    """Composes two or more finite state automata.
 
     Specifically, the union operation synchronizes all of the automata on their
     common events, allowing private events regardless.
@@ -40,7 +40,7 @@ def union(automata):
     {
         # Dictionary for an automaton
     }
-    '''
+    """
     new_automaton = {}
     # First, get all events in the new automaton by unioning sets
     new_automaton["events"] = helper.union_events(automata)

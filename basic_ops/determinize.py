@@ -3,7 +3,7 @@ from basic_ops.helpers.determinization_helpers import determinize_transitions
 
 
 def determinize(automaton, alphabet=None):
-    '''Computes the determinized version of the automaton.
+    """Computes the determinized version of the automaton.
     That is, it first determines the initial macro-state, composed of the
     unobservable reach from the original intial state (with respect to the
     observable alphabet given, or the attacker alphabet if none given).
@@ -35,7 +35,7 @@ def determinize(automaton, alphabet=None):
         # Dictionary for an automaton with only events in attacker alphabet,
         # as defined in the automaton's data structure
     }
-    '''
+    """
     if alphabet == None:
         alphabet = automaton["events"]["attacker"]
     # First, get all events in the new automaton by intersecting sets

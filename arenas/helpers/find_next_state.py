@@ -2,7 +2,7 @@ import basic_ops.helpers.string_helpers as str_helper
 
 
 def find_next_state(automata, state, event):
-    '''Gets the next state for the system composed of all automata in the
+    """Gets the next state for the system composed of all automata in the
     parameter from the current state, given an event. It assumes that if
     the event is not defined in one of the automata, then that automaton
     simply does not progress to the next stage.
@@ -25,7 +25,7 @@ def find_next_state(automata, state, event):
     --------
     >>> print(find_next_state(automata, ["q1", "q3", "{q2, q5}"], "a"))
     ["q1", "q5", "{q6, q7}"]
-    '''
+    """
     next_state = [""] * len(automata)
     for i in range(len(automata)):
         transitions = automata[i]["transitions"]["all"]

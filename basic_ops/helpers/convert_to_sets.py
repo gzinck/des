@@ -1,5 +1,5 @@
 def convert_to_sets(structure):
-    '''Converts all lists to sets in a complex data structure (recursively).
+    """Converts all lists to sets in a complex data structure (recursively).
     This is useful when lists are really supposed to be unordered, but JSON
     prevents their use.
 
@@ -55,7 +55,7 @@ def convert_to_sets(structure):
 
     >>> assert convert_to_sets(automaton1) == convert_to_sets(automaton2)
     True
-    '''
+    """
     if isinstance(structure, list):
         # Then convert to a set
         new_struct = set()

@@ -1,5 +1,5 @@
 def validate(automaton):
-    '''Validates if an automaton is correctly formatted. This includes:
+    """Validates if an automaton is correctly formatted. This includes:
 
     1. Has a states area with "all", "initial", "marked", and "bad"
             - Must be a dictionary
@@ -26,7 +26,7 @@ def validate(automaton):
     --------
     >>> validate(automaton1)
     True
-    '''
+    """
 
     if not isinstance(automaton, dict):
         raise Exception("The automaton must be a dictionary structure")
