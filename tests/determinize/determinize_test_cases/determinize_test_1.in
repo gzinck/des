@@ -2,7 +2,9 @@
 	"states": {
 		"all": ["q1", "q2", "q3", "q4", "q5"],
 		"initial": ["q1"],
-		"marked": ["q2", "q3"],
+		"marked": [
+		    ["q2", "q3"]
+		],
 		"bad": ["q1"]
 	},
 	"events": {

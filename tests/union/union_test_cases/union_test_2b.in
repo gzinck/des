@@ -2,7 +2,7 @@
 	"states": {
 		"all": ["q1"],
 		"initial": ["q1"],
-		"marked": [],
+		"marked": [[]],
 		"bad": []
 	},
 	"events": {
