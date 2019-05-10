@@ -5,6 +5,20 @@ and other systems. It has been designed as proof-of-concept for academic works
 in theoretical computer science developed at Inria (Rennes, France) and Mount
 Allison University (Sackville, Canada).
 
+## Getting Started
+
+To begin, make sure you have **Python 3.7** installed, as well as tkinter (which is typically bundled with python). Run the application in the main directory as follows:
+
+```
+python3 main.py
+```
+
+Follow the on-screen instructions to interact with the command-line interface. Note that you will need input automata to provide the application—these should all be in separate files which you will need to load into the application after launch.
+
+### Input Specification
+
+Input for the program must be specified correctly in a text file, which is then passed into the program. For information on how to create the text file, see https://github.com/gzinck/des/wiki/Input-Specification
+
 ## Current Features
 
 - Composing two automata with union and product operations
@@ -13,13 +27,8 @@ Allison University (Sackville, Canada).
 the specification [here](https://github.com/gzinck/des/wiki/Input-Specification).
 - Creation of an arena, as per *Leaking Secrets* (Ricker, Marchand, \&
 Keroglou, 2019).
+- An interface to allow the user to work with the software.
 
 ## Upcoming Features
 
-- An interface to allow the user to work with the software. In its current state,
-it only runs tests using python's unittest module, pulling in automata from JSON
-files.
-
-## Input Specification
-
-Input for the program must be specified correctly in a text file, which is then passed into the program. For information on how to create the text file, see https://github.com/gzinck/des/wiki/Input-Specification
+- Performing the supervisory control algorithm on an arena with pre-defined bad states.
