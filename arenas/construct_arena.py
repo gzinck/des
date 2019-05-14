@@ -106,8 +106,8 @@ def construct_arena(automaton):
 
                 # Find all the places that are accessible from v2
                 for v2_event in curr_v2_events:
-                    next_state = find_next_state(all_automata, curr_v2_state, v2_event)
-                    next_sstr = format_state(next_state)
+                    next_v2_state = find_next_state(all_automata, curr_v2_state, v2_event)
+                    next_sstr = format_state(next_v2_state)
                     # Add the transition
                     trans = format_transition(curr_v2_str, v2_event)
 
@@ -115,16 +115,22 @@ def construct_arena(automaton):
                     if v2_event in obs_events[0]:
                         # Then it goes to v1, as normal
                         v2_trans[trans] = [next_sstr]
+                        print("NEXT STATE:", next_sstr)
+                        print("queue:", v1_queue)
                         if next_sstr not in v1_visited:
                             v1_visited.add(next_sstr)
-                            v1_queue.append(next_state)
+                            v1_queue.append(next_v2_state)
+                            print("queue:", v1_queue)
                     else:
                         # Then it goes to another state in v2, same event set
                         next_sstr = format_state([next_sstr, event_str])
                         v2_trans[trans] = [next_sstr]
+                        print("NEXT STATE:", next_sstr)
+                        print("queue:", v2_queue)
                         if next_sstr not in v2_visited:
                             v2_visited.add(next_sstr)
-                            v2_queue.append((curr, event))
+                            v2_queue.append((next_v2_state, events))
+                            print("queue:", v2_queue)
 
     # The language includes both the new event types we added and the events
     # already visible to the controller
