@@ -6,9 +6,10 @@ from basic_ops.helpers.determinization_helpers import get_unobservable_reach
 def get_valid_control_actions(automaton, state, observable_events):
     """This gets all possible valid control actions for an automaton at a given
     state. That is, it finds all possible actions for the automaton from the
-    current state and returns its power set as a list of tuples.
-    Note that if there exist uncontrollable events that are defined, they must
-    be part of each control action returned.
+    unobservable reach of the current state and returns its power set as a list
+    of tuples. Note than unobservable events will not be included in the sets,
+    and all uncontrollable events that may occur at the state will be included
+    in every set.
 
     Notes
     -----
@@ -54,11 +55,12 @@ def get_valid_control_actions(automaton, state, observable_events):
             trans = str_helper.format_transition(state, event)
             if trans in automaton["transitions"]["all"]:
                 valid_ucevents.append(event)
+
     # Now that we have all events, get the power set
     all_actions = list(chain.from_iterable(
         combinations(valid_cevents, x) for x in range(0, len(valid_cevents) + 1)
     ))
+
     # Convert to lists
     events = [list(x) + valid_ucevents for x in all_actions]
-    # events = [list(x) + list(uncont_events) for x in all_actions]
     return [x for x in events if len(x) > 0]

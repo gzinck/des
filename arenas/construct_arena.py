@@ -86,9 +86,12 @@ def construct_arena(automaton):
             trans = format_transition(curr_str, event_str)
             curr_v2_str = format_state([curr_str, event_str])
             v1_trans[trans] = [curr_v2_str]
+
+            # If we haven't already visited this v2 state, start working on it!
             if curr_v2_str not in v2_visited:
                 v2_visited.add(curr_v2_str)
-                add_v2_transitions(all_automata, curr, event, v2_trans, v2_visited, v1_visited, v1_queue)
+                add_v2_transitions(all_automata, curr, event, v2_trans,
+                                   v2_visited, v1_visited, v1_queue)
 
     # The language includes both the new event types we added and the events
     # already visible to the controller
