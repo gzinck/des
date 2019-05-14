@@ -1,6 +1,7 @@
 from basic_ops.determinize import determinize
 from arenas.helpers.control_actions import get_valid_control_actions
 from arenas.helpers.state_helpers import find_next_state, check_marked_agents
+from arenas.helpers.construct_arena_helpers import add_v2_transitions
 from basic_ops.helpers.string_helpers import *
 
 
@@ -48,9 +49,6 @@ def construct_arena(automaton):
     all_automata = [
         determinize(automaton, obs_events[i]) for i in range(len(obs_events))
     ]
-    # controller = determinize(automaton, obs_events[0])
-    # agent1 = determinize(automaton, obs_events[1])
-    # agent2 = determinize(automaton, obs_events[2])
     all_automata.insert(0, automaton)
 
     bad_states = []
@@ -64,7 +62,6 @@ def construct_arena(automaton):
     v2_trans = {}
     # Add initial state to a visited set and a queue
     v1_queue = [initial]
-    v2_queue = []
     v1_visited = {initial_str}
     v2_visited = set()
 
@@ -78,7 +75,7 @@ def construct_arena(automaton):
             bad_states.append(curr_str)
 
         # Identify what events are accessible from here
-        events = get_valid_control_actions(all_automata[1], curr[1], all_events)
+        events = get_valid_control_actions(all_automata[0], curr[0], all_events)
 
         for event in events:
             # Add this event to the system
@@ -91,46 +88,7 @@ def construct_arena(automaton):
             v1_trans[trans] = [curr_v2_str]
             if curr_v2_str not in v2_visited:
                 v2_visited.add(curr_v2_str)
-                v2_queue.append((curr, event))
-
-            # Deal with all of the things it leads to
-            while len(v2_queue) > 0:
-                curr_v2 = v2_queue.pop(0)
-
-                # Extract the information
-                curr_v2_state = curr_v2[0]
-                curr_v2_sstr = format_state(curr_v2_state)
-                curr_v2_events = curr_v2[1]
-                curr_v2_estr = format_state_set(curr_v2_events)
-                curr_v2_str = format_state([curr_v2_sstr, curr_v2_estr])
-
-                # Find all the places that are accessible from v2
-                for v2_event in curr_v2_events:
-                    next_v2_state = find_next_state(all_automata, curr_v2_state, v2_event)
-                    next_sstr = format_state(next_v2_state)
-                    # Add the transition
-                    trans = format_transition(curr_v2_str, v2_event)
-
-                    # Identify which set it goes into
-                    if v2_event in obs_events[0]:
-                        # Then it goes to v1, as normal
-                        v2_trans[trans] = [next_sstr]
-                        print("NEXT STATE:", next_sstr)
-                        print("queue:", v1_queue)
-                        if next_sstr not in v1_visited:
-                            v1_visited.add(next_sstr)
-                            v1_queue.append(next_v2_state)
-                            print("queue:", v1_queue)
-                    else:
-                        # Then it goes to another state in v2, same event set
-                        next_sstr = format_state([next_sstr, event_str])
-                        v2_trans[trans] = [next_sstr]
-                        print("NEXT STATE:", next_sstr)
-                        print("queue:", v2_queue)
-                        if next_sstr not in v2_visited:
-                            v2_visited.add(next_sstr)
-                            v2_queue.append((next_v2_state, events))
-                            print("queue:", v2_queue)
+                add_v2_transitions(all_automata, curr, event, v2_trans, v2_visited, v1_visited, v1_queue)
 
     # The language includes both the new event types we added and the events
     # already visible to the controller
