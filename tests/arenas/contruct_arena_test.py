@@ -32,7 +32,7 @@ class TestConstructArena(unittest.TestCase):
 
             # Print
             # helper.pretty_print(result["states"]["bad"])
-            helper.pretty_print(result)
+            # helper.pretty_print(result)
 
             # Check answer, making sure it's OK if elements not in order
             self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))

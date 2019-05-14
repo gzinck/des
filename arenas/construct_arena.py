@@ -66,7 +66,6 @@ def construct_arena(automaton):
 
     # Keep going through our queue of controller states until done
     while len(v1_queue) > 0:
-        print(v1_queue, "is the v1 queue")
         curr = v1_queue.pop(0)
         curr_str = format_state(curr)
 
@@ -92,7 +91,6 @@ def construct_arena(automaton):
 
             # Deal with all of the things it leads to
             while len(v2_queue) > 0:
-                print(v2_queue, "is the v2 queue")
                 curr_v2 = v2_queue.pop(0)
 
                 # Extract the information
@@ -110,29 +108,30 @@ def construct_arena(automaton):
                     trans = format_transition(curr_v2_str, v2_event)
 
                     # Identify which set it goes into
-                    if event in obs_events[0]:
+                    if v2_event in obs_events[0]:
                         # Then it goes to v1, as normal
-                        v2_trans[trans] = next_sstr
+                        v2_trans[trans] = [next_sstr]
                         if next_sstr not in v1_visited:
                             v1_visited.add(next_sstr)
                             v1_queue.append(next_state)
                     else:
                         # Then it goes to another state in v2, same event set
                         next_sstr = format_state([next_sstr, event_str])
-                        v2_trans[trans] = next_sstr
+                        v2_trans[trans] = [next_sstr]
                         if next_sstr not in v2_visited:
                             v2_visited.add(next_sstr)
                             v2_queue.append((curr, event))
 
     # The language includes both the new event types we added and the events
     # already visible to the controller
-    all_events = list(new_events.union(set(obs_events[0])))
+    all_events = list(new_events.union(set(automaton["events"]["all"])))
+    obs_events = list(new_events.union(set(obs_events[0])))
 
     return {
         "events": {
             "all": all_events,  # The events start off identical
             "controllable": [list(new_events)],  # In arena, control just new
-            "observable": [all_events]
+            "observable": [obs_events]
         },
         "states": {
             "all": list(v1_visited.union(v2_visited)),
