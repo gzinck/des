@@ -69,11 +69,11 @@ def check_marked_agents(automata, states):
     boolean
         True if the resulting state in the arena should be marked.
     """
-    for index in range(1, len(automata)):
+    for index in range(2, len(automata)):
         # Go through every other automaton's marked states (not the current one)
-        for other_index in [x for x in range(1, len(automata)) if x != index]:
+        for other_index in [x for x in range(2, len(automata)) if x != index]:
             # If it is marked
-            marked = automata[index]["states"]["marked"][other_index]
+            marked = automata[index]["states"]["marked"][other_index - 1]
             if states[index] in marked:
                 return True
     return False
