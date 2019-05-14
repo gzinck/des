@@ -1,4 +1,4 @@
-import pprint
+from json import dumps
 
 
 def get_states(states, chosen_so_far=[]):
@@ -126,5 +126,4 @@ def pretty_print(automaton):
     """
     Formats an automaton in an attractive way and prints as text.
     """
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(automaton)
+    print(dumps(automaton, sort_keys=True, indent=4))

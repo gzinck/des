@@ -2,7 +2,7 @@ from itertools import combinations, chain
 import basic_ops.helpers.string_helpers as str_helper
 
 
-def get_valid_control_actions(automaton, state):
+def get_valid_control_actions(automaton, state, all_events):
     """This gets all possible valid control actions for an automaton at a given
     state. That is, it finds all possible actions for the automaton from the
     current state and returns its power set as a list of tuples.
@@ -40,16 +40,19 @@ def get_valid_control_actions(automaton, state):
             valid_cevents.append(event)
 
     # Check for valid uncontrollable events
-    uncont_events = set(automaton["events"]["all"]).difference(set(cont_events))
-    valid_ucevents = []
-    for event in uncont_events:
-        trans = str_helper.format_transition(state, event)
-        if trans in automaton["transitions"]["all"]:
-            valid_ucevents.append(event)
+    uncont_events = set(all_events).difference(set(cont_events))
+    # print("CONT EVENTS:", cont_events)
+    # print("UNCONT EVENTS:", uncont_events)
+    # valid_ucevents = []
+    # for event in uncont_events:
+    #     trans = str_helper.format_transition(state, event)
+    #     if trans in automaton["transitions"]["all"]:
+    #         valid_ucevents.append(event)
     # Now that we have all events, get the power set
     all_actions = list(chain.from_iterable(
         combinations(valid_cevents, x) for x in range(0, len(valid_cevents) + 1)
     ))
     # Convert to lists
-    events = [list(x) + valid_ucevents for x in all_actions]
+    # events = [list(x) + valid_ucevents for x in all_actions]
+    events = [list(x) + list(uncont_events) for x in all_actions]
     return [x for x in events if len(x) > 0]

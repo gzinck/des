@@ -43,11 +43,15 @@ def construct_arena(automaton):
     }
     """
     # Get the three observers
+    all_events = automaton["events"]["all"]
     obs_events = automaton["events"]["observable"]
-    controller = determinize(automaton, obs_events[0])
-    agent1 = determinize(automaton, obs_events[1])
-    agent2 = determinize(automaton, obs_events[2])
-    all_automata = [automaton, controller, agent1, agent2]
+    all_automata = [
+        determinize(automaton, obs_events[i]) for i in range(len(obs_events))
+    ]
+    # controller = determinize(automaton, obs_events[0])
+    # agent1 = determinize(automaton, obs_events[1])
+    # agent2 = determinize(automaton, obs_events[2])
+    all_automata.insert(0, automaton)
 
     bad_states = []
 
@@ -74,7 +78,7 @@ def construct_arena(automaton):
             bad_states.append(curr_str)
 
         # Identify what events are accessible from here
-        events = get_valid_control_actions(controller, curr[1])
+        events = get_valid_control_actions(all_automata[1], curr[1], all_events)
 
         for event in events:
             # Add this event to the system
