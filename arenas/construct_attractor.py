@@ -32,10 +32,11 @@ def construct_attractor(arena):
     keep_going = True
     while keep_going:
         keep_going = False
-        keep_going += mark_bad_v2s(arena)
-        keep_going += mark_bad_v1s(arena)
+        keep_going += mark_bad_v2s(attractor)
+        keep_going += mark_bad_v1s(attractor)
 
     bad = []
     bad.extend(attractor["states"]["bad-v1"])
     bad.extend(attractor["states"]["bad-v2"])
     attractor["states"]["bad"] = bad
+    return attractor

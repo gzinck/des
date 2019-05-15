@@ -5,7 +5,7 @@ import json
 from basic_ops.determinize import determinize
 
 
-class TestProduct(unittest.TestCase):
+class TestDeterminize(unittest.TestCase):
     def setUp(self):
         filenames = [
             "tests/determinize/determinize_test_cases/determinize_test_1.in"

@@ -2,14 +2,14 @@ import unittest
 import basic_ops.helpers.convert_to_sets as converter
 import basic_ops.helpers.string_helpers as helper
 import json
-from arenas.construct_arena import construct_arena
+from arenas.construct_attractor import construct_attractor
 
 
 class TestConstructArena(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            "tests/arenas/construct_arena_test_cases/arenas_test_1.in",
-            "tests/arenas/construct_arena_test_cases/arenas_test_3.in"
+            "tests/arenas/construct_attractor_test_cases/arenas_test_1.in",
+            "tests/arenas/construct_attractor_test_cases/arenas_test_3.in"
         ]
 
         # First automaton for each test case
@@ -29,7 +29,7 @@ class TestConstructArena(unittest.TestCase):
                 ans = json.load(f)
 
             # Get the arena for the appropriate automaton
-            result = construct_arena(self.automata[i])
+            result = construct_attractor(self.automata[i])
 
             # Print
             # helper.pretty_print(result["states"]["bad"])
