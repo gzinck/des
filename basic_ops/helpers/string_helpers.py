@@ -122,8 +122,51 @@ def format_transition(state, event):
     return state + "->" + event
 
 
+def extract_state(transition):
+    """Extracts the name of the origin state given a string representing a
+    transition.
+
+    Parameters
+    ----------
+    transition : str
+        A transition
+
+    Returns
+    -------
+    str
+        The corresponding state from the transition
+    """
+    return transition.split("->", 1)[0]
+
+
+def extract_event(transition):
+    """Extracts the name of the event given a string representing a
+    transition.
+
+    Parameters
+    ----------
+    transition : str
+        A transition
+
+    Returns
+    -------
+    str
+        The corresponding event from the transition
+    """
+    return transition.split("->", 1)[1]
+
+
 def pretty_print(automaton):
     """
     Formats an automaton in an attractive way and prints as text.
+
+    Parameters
+    ----------
+    automaton : dict
+        The automaton to print
+
+    Returns
+    -------
+    None
     """
     print(dumps(automaton, sort_keys=True, indent=4))

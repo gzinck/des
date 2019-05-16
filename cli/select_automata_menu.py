@@ -39,7 +39,7 @@ def select_automata_menu(automata):
             inpt = inpt.lower()
             if inpt in ["e", "exit"]:
                 return None
-            elif input in ["s", "save"]:
+            elif inpt in ["s", "save"]:
                 result = [automata[i] for i in range(num_options) if selected[i]]
                 if len(result) > 1:
                     sel = [item["name"] for item in result]

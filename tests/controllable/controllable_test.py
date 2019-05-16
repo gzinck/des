@@ -2,14 +2,13 @@ import unittest
 import basic_ops.helpers.convert_to_sets as converter
 import basic_ops.helpers.string_helpers as helper
 import json
-from arenas.construct_arena import construct_arena
+from basic_ops.controllable import get_controllable
 
 
-class TestConstructArena(unittest.TestCase):
+class TestControllable(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            "tests/arenas/construct_arena_test_cases/arenas_test_1.in",
-            "tests/arenas/construct_arena_test_cases/arenas_test_3.in"
+            "tests/controllable/controllable_test_cases/controllable_test_2.in"
         ]
 
         # First automaton for each test case
@@ -18,7 +17,7 @@ class TestConstructArena(unittest.TestCase):
             with open(self.filenames[i]) as f:
                 self.automata[i] = json.load(f)
 
-    def test_construct_arena(self):
+    def test_controllable(self):
         """
         This ensures that all pre-built test cases work.
         """
@@ -29,7 +28,7 @@ class TestConstructArena(unittest.TestCase):
                 ans = json.load(f)
 
             # Get the arena for the appropriate automaton
-            result = construct_arena(self.automata[i])
+            result = get_controllable(self.automata[i])
 
             # Print
             # helper.pretty_print(result["states"]["bad"])
