@@ -1,6 +1,7 @@
 from basic_ops.determinize import determinize
 from basic_ops.product import product
 from basic_ops.union import union
+from basic_ops.accessible import get_accessible
 from arenas.construct_arena import construct_arena
 
 from cli.select_automata_menu import select_automata_menu, select_automaton_menu
@@ -19,6 +20,7 @@ def ops_menu(automata):
     print("d: determinization")
     print("u: union (parallel composition)")
     print("p: product (intersection)")
+    print("c: accessible (prune off states not accessible from initial)")
     print("e: exit to main menu")
     print("-------------------------------------------------------------------")
     print("Leaking Secrets (2019 paper) ops")
@@ -44,6 +46,12 @@ def ops_menu(automata):
         selected = select_automata_menu(automata)
         if selected is not None:
             result = product(selected)
+            name_automaton_menu(automata, result)
+            automata.append(result)
+    elif inpt in ["c", "accessible"]:
+        selected = select_automaton_menu(automata)
+        if selected is not None:
+            result = get_accessible(selected)
             name_automaton_menu(automata, result)
             automata.append(result)
     elif inpt in ["a", "arena"]:
