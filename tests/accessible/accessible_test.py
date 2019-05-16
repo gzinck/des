@@ -9,7 +9,8 @@ class TestAccessible(unittest.TestCase):
     def setUp(self):
         self.filenames = [
             "tests/accessible/accessible_test_cases/accessible_test_1.in",
-            "tests/accessible/accessible_test_cases/accessible_test_2.in"
+            "tests/accessible/accessible_test_cases/accessible_test_2.in",
+            "tests/accessible/accessible_test_cases/accessible_test_3.in"
         ]
 
         # First automaton for each test case

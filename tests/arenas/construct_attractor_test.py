@@ -18,7 +18,7 @@ class TestConstructAttractor(unittest.TestCase):
             with open(self.filenames[i]) as f:
                 self.automata[i] = json.load(f)
 
-    def test_determinize(self):
+    def test_construct_attractor(self):
         """
         This ensures that all pre-built test cases work.
         """

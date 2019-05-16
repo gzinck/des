@@ -33,9 +33,10 @@ def get_accessible(automaton):
             if trans in transitions:
                 to = transitions[trans]
                 accessible_trans[trans] = to
-                if to not in accessible_states:
-                    accessible_states.add(to)
-                    queue.append(to)
+                for state in to:
+                    if state not in accessible_states:
+                        accessible_states.add(state)
+                        queue.append(state)
 
     # Update the states
     automaton["states"]["all"] = sorted(accessible_states)

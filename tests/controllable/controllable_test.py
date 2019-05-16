@@ -8,7 +8,7 @@ from basic_ops.controllable import get_controllable
 class TestControllable(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            "tests/controllable/controllable_test_cases/controllable_test_1.in"
+            "tests/controllable/controllable_test_cases/controllable_test_2.in"
         ]
 
         # First automaton for each test case
@@ -32,7 +32,7 @@ class TestControllable(unittest.TestCase):
 
             # Print
             # helper.pretty_print(result["states"]["bad"])
-            helper.pretty_print(result)
+            # helper.pretty_print(result)
 
             # Check answer, making sure it's OK if elements not in order
             self.assertEqual(converter.convert_to_sets(result), converter.convert_to_sets(ans))
