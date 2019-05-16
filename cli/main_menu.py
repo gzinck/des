@@ -3,6 +3,7 @@ from cli.open_file_menu import open_file_menu
 from cli.select_automata_menu import print_selected
 from cli.message import show_error
 from cli.save_automaton import save_automaton
+from cli.vis_automaton import vis_automaton
 from time import sleep
 
 
@@ -17,6 +18,7 @@ def main_menu(next_screens, automata):
     print("l: list all automata")
     print("b: begin to perform operations")
     print("s: save an automaton")
+    print("v: visualize an automaton")
     print("e: exit")
     print("###################################################################")
     print()
@@ -31,6 +33,8 @@ def main_menu(next_screens, automata):
         ops_menu(automata)
     elif inpt in ["s", "save"]:
         save_automaton(automata)
+    elif inpt in ["v", "visualize"]:
+        vis_automaton(automata)
     elif inpt in ["e", "exit"]:
         print("Exiting...")
         next_screens.pop()  # Remove main menu from the stack
