@@ -2,14 +2,14 @@ import unittest
 import basic_ops.helpers.convert_to_sets as converter
 import basic_ops.helpers.string_helpers as helper
 import json
-from arenas.construct_attractor import construct_attractor
+from basic_ops.accessible import get_accessible
 
 
-class TestConstructAttractor(unittest.TestCase):
+class TestAccessible(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            "tests/arenas/construct_attractor_test_cases/arenas_test_1.in",
-            "tests/arenas/construct_attractor_test_cases/arenas_test_3.in"
+            "tests/accessible/accessible_test_cases/accessible_test_1.in",
+            "tests/accessible/accessible_test_cases/accessible_test_2.in"
         ]
 
         # First automaton for each test case
@@ -18,7 +18,7 @@ class TestConstructAttractor(unittest.TestCase):
             with open(self.filenames[i]) as f:
                 self.automata[i] = json.load(f)
 
-    def test_determinize(self):
+    def test_accessible(self):
         """
         This ensures that all pre-built test cases work.
         """
@@ -29,7 +29,7 @@ class TestConstructAttractor(unittest.TestCase):
                 ans = json.load(f)
 
             # Get the arena for the appropriate automaton
-            result = construct_attractor(self.automata[i])
+            result = get_accessible(self.automata[i])
 
             # Print
             # helper.pretty_print(result["states"]["bad"])
