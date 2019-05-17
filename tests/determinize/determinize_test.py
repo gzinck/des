@@ -7,14 +7,15 @@ from basic_ops.determinize import determinize
 
 class TestDeterminize(unittest.TestCase):
     def setUp(self):
-        filenames = [
-            "tests/determinize/determinize_test_cases/determinize_test_1.in"
+        self.filenames = [
+            # "tests/determinize/determinize_test_cases/determinize_test_1.in",
+            "tests/determinize/determinize_test_cases/determinize_test_2.in"
         ]
 
         # First automaton for each test case
-        self.automata = [{}] * len(filenames)
-        for i in range(len(filenames)):
-            with open(filenames[i]) as f:
+        self.automata = [{}] * len(self.filenames)
+        for i in range(len(self.filenames)):
+            with open(self.filenames[i]) as f:
                 self.automata[i] = json.load(f)
 
     def test_determinize(self):
@@ -24,7 +25,7 @@ class TestDeterminize(unittest.TestCase):
         for i in range(len(self.automata)):
             # Get the answer
             ans = None
-            with open("tests/determinize/determinize_test_cases/determinize_test_" + str(i + 1) + ".out") as f:
+            with open(self.filenames[i][:-2] + "out") as f:
                 ans = json.load(f)
 
             # Get the determinization of the appropriate automaton
