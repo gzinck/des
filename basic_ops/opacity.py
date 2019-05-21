@@ -21,6 +21,5 @@ def check_opacity(automaton, observer=0):
         secrets. If true, indicates that opacity holds with respect to those
         secrets
     """
-    obs_events = automaton["events"]["observable"][observer]
-    det = determinize(automaton, obs_events)
+    det = determinize(automaton, observer)
     return [len(m) == 0 for m in det["states"]["marked"]]

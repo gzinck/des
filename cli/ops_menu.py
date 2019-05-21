@@ -1,4 +1,5 @@
 from basic_ops.determinize import determinize
+from basic_ops.opacity import check_opacity
 from basic_ops.product import product
 from basic_ops.union import union
 from basic_ops.accessible import get_accessible
@@ -7,6 +8,7 @@ from arenas.construct_arena import construct_arena
 from arenas.construct_attractor import construct_attractor
 
 from cli.select_automata_menu import select_automata_menu, select_automaton_menu
+from cli.select_observer_menu import select_observer_menu
 from cli.name_automaton_menu import name_automaton_menu
 from cli.message import show_error, show_notification
 
@@ -20,6 +22,7 @@ def ops_menu(automata):
     print("Then, the operation will be performed on the current automaton")
     print("-------------------------------------------------------------------")
     print("d: determinization")
+    print("o: check current state opacity")
     print("u: union (parallel composition)")
     print("p: product (intersection)")
     print("a: accessible (prune off states not accessible from initial)")
@@ -37,10 +40,22 @@ def ops_menu(automata):
     inpt = input().lower()
     if inpt in ["d", "determinization"]:
         selected = select_automaton_menu(automata)
-        if selected is not None:
-            result = determinize(selected)
+        observer = select_observer_menu(selected)
+        if selected is not None and observer is not None:
+            result = determinize(selected, observer)
             name_automaton_menu(automata, result)
             automata.append(result)
+    elif inpt in ["o", "opacity"]:
+        selected = select_automaton_menu(automata)
+        observer = select_observer_menu(selected)
+        if selected is not None and observer is not None:
+            result = check_opacity(selected, observer)
+            print("With respect to the observer " + str(observer) +
+                  ", the system is opaque")
+            print("for the following secrets:")
+            print([i for i, x in enumerate(result) if x is True])
+            print("The system is not opaque for the following secrets:")
+            print([i for i, x in enumerate(result) if x is False])
     elif inpt in ["u", "union", "parallel composition"]:
         selected = select_automata_menu(automata)
         if selected is not None:

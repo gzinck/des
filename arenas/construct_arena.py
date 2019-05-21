@@ -47,7 +47,7 @@ def construct_arena(automaton):
     all_events = automaton["events"]["all"]
     obs_events = automaton["events"]["observable"]
     all_automata = [
-        determinize(automaton, obs_events[i]) for i in range(len(obs_events))
+        determinize(automaton, i) for i in range(len(obs_events))
     ]
     all_automata.insert(0, automaton)
 
