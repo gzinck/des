@@ -2,14 +2,16 @@ import unittest
 import basic_ops.helpers.convert_to_sets as converter
 import basic_ops.helpers.string_helpers as helper
 import json
-from basic_ops.determinize import determinize
+from basic_ops.opacity import check_opacity
 
 
-class TestDeterminize(unittest.TestCase):
+class TestOpacity(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            # "tests/determinize/determinize_test_cases/determinize_test_1.in",
-            "tests/determinize/determinize_test_cases/determinize_test_2.in"
+            "tests/opacity/opacity_test_cases/opacity_test_1.in",
+            "tests/opacity/opacity_test_cases/opacity_test_2.in",
+            "tests/opacity/opacity_test_cases/opacity_test_3.in",
+            "tests/opacity/opacity_test_cases/opacity_test_4.in"
         ]
 
         # First automaton for each test case
@@ -18,7 +20,7 @@ class TestDeterminize(unittest.TestCase):
             with open(self.filenames[i]) as f:
                 self.automata[i] = json.load(f)
 
-    def test_determinize(self):
+    def test_opacity(self):
         """
         This ensures that all pre-built test cases work.
         """
@@ -28,8 +30,8 @@ class TestDeterminize(unittest.TestCase):
             with open(self.filenames[i][:-2] + "out") as f:
                 ans = json.load(f)
 
-            # Get the determinization of the appropriate automaton
-            result = determinize(self.automata[i])
+            # Check if opaque
+            result = check_opacity(self.automata[i])
 
             # Print
             # helper.pretty_print(result)

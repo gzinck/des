@@ -2,7 +2,7 @@ from basic_ops.helpers.event_helpers import intersect_events
 from basic_ops.helpers.determinization_helpers import determinize_transitions
 
 
-def determinize(automaton, alphabet=None):
+def determinize(automaton, alphabet=0):
     """Computes the determinized version of the automaton.
     That is, it first determines the initial macro-state, composed of the
     unobservable reach from the original intial state (with respect to the
@@ -36,8 +36,7 @@ def determinize(automaton, alphabet=None):
         # as defined in the automaton's data structure
     }
     """
-    if alphabet == None:
-        alphabet = automaton["events"]["observable"][0]
+    alphabet = automaton["events"]["observable"][alphabet]
     # First, get all events in the new automaton by intersecting sets
     events = intersect_events(automaton, alphabet)
     # Then, update the transition function and add all of the states
