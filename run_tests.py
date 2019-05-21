@@ -9,6 +9,7 @@ import tests.union.union_test as union
 import tests.accessible.accessible_test as accessible
 import tests.controllable.controllable_test as controllable
 import tests.determinize.determinize_test as determinize
+import tests.opacity.opacity_test as opacity
 import tests.structure_validation.validator_test as validator
 import tests.arenas.contruct_arena_test as const_arena
 import tests.arenas.construct_attractor_test as const_attr
@@ -23,6 +24,7 @@ suite.addTests(loader.loadTestsFromModule(union))
 suite.addTests(loader.loadTestsFromModule(accessible))
 suite.addTests(loader.loadTestsFromModule(controllable))
 suite.addTests(loader.loadTestsFromModule(determinize))
+suite.addTests(loader.loadTestsFromModule(opacity))
 suite.addTests(loader.loadTestsFromModule(validator))
 suite.addTests(loader.loadTestsFromModule(const_arena))
 suite.addTests(loader.loadTestsFromModule(const_attr))

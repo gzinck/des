@@ -36,7 +36,7 @@ def determinize(automaton, alphabet=None):
         # as defined in the automaton's data structure
     }
     """
-    if alphabet == None:
+    if alphabet is None:
         alphabet = automaton["events"]["observable"][0]
     # First, get all events in the new automaton by intersecting sets
     events = intersect_events(automaton, alphabet)

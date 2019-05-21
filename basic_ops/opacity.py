@@ -1,4 +1,7 @@
-def check_opacity(automaton, observer=0, secret=0):
+from basic_ops.determinize import determinize
+
+
+def check_opacity(automaton, observer=0):
     """Verifies current state opacity for the given automaton with respect to
     a certain agent's observability. That is, if every word leading to a bad
     state has another word with the same projection leading to a good state,
@@ -10,11 +13,14 @@ def check_opacity(automaton, observer=0, secret=0):
         The automaton for which to check for opacity
     observer : int
         The index of the observer which is examining the system
-    secret : int
-        The index of the secret set of states which must be opaque with respect
-        to the observer
 
     Returns
     -------
-
+    list of bool
+        Whether or not the automaton is opaque with respect to each set of
+        secrets. If true, indicates that opacity holds with respect to those
+        secrets
     """
+    obs_events = automaton["events"]["observable"][observer]
+    det = determinize(automaton, obs_events)
+    return [len(m) == 0 for m in det["states"]["marked"]]

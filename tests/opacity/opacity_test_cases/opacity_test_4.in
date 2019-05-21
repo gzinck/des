@@ -1,0 +1,29 @@
+{
+	"states": {
+		"all": ["{q1, q4}", "{q2, q3, q5}", "{q2, q3}"],
+		"initial": ["{q1, q4}"],
+		"marked": [
+		    [],
+		    ["{q1, q4}"]
+		],
+		"bad": []
+	},
+	"events": {
+		"all": ["a"],
+		"controllable": [
+			["a"],
+			[]
+		],
+		"observable": [
+			["a"],
+			[]
+		]
+	},
+	"transitions": {
+		"all": {
+			"{q1, q4}->a": ["{q2, q3, q5}"],
+			"{q2, q3, q5}->a": ["{q2, q3}"]
+		},
+		"bad": {}
+	}
+}
