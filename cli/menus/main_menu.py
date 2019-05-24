@@ -16,7 +16,7 @@ Type one of the below commands
 o: open a file for an automaton
 l: list all automata
 b: begin to perform operations
-s: save an automaton
+s: save automata
 c: close automata
 v: visualize an automaton
 e: exit

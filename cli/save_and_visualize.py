@@ -52,7 +52,7 @@ def save(automaton):
             dump(automaton, f, sort_keys=True, indent=4)
 
         location = location[:-5]
-        visualize(automaton, location)
+        visualize(automaton, location, view=False)
         show_notification("Saved to " + location)
         return True
 

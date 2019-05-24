@@ -48,14 +48,14 @@ def ops_menu(automata, temp_dir):
 
     inpt = input().lower()
     if inpt in ["d", "determinization"]:
-        selected = select_automaton_menu(automata)
+        selected = select_automaton_menu(automata, "Determinization")
         if selected is not None:
             observer = select_observer_menu(selected)
             if observer is not None:
                 result = determinize(selected, observer)
                 __save(automata, result, temp_dir)
     elif inpt in ["o", "opacity"]:
-        selected = select_automaton_menu(automata)
+        selected = select_automaton_menu(automata, "Checking Opacity")
         if selected is not None:
             observer = select_observer_menu(selected)
             if observer is not None:
@@ -67,39 +67,39 @@ def ops_menu(automata, temp_dir):
                 print("The system is not opaque for the following secrets:")
                 print([i for i, x in enumerate(result) if x is False])
     elif inpt in ["u", "union", "parallel composition"]:
-        selected = select_automata_menu(automata, 2)
+        selected = select_automata_menu(automata, 2, "Parallel Composition")
         if selected is not None:
             result = union(selected)
             __save(automata, result, temp_dir)
     elif inpt in ["p", "product", "intersection"]:
-        selected = select_automata_menu(automata, 2)
+        selected = select_automata_menu(automata, 2, "Intersection")
         if selected is not None:
             result = product(selected)
             __save(automata, result, temp_dir)
     elif inpt in ["a", "accessible"]:
-        selected = select_automaton_menu(automata)
+        selected = select_automaton_menu(automata, "Accessibility Operation")
         if selected is not None:
             result = get_accessible(selected)
             __save(automata, result, temp_dir)
     elif inpt in ["c", "controllable"]:
-        selected = select_automaton_menu(automata)
+        selected = select_automaton_menu(automata, "Controllable Operation")
         if selected is not None:
             result = get_controllable(selected)
             __save(automata, result, temp_dir)
     elif inpt in ["ba"]:
-        selected = select_automaton_menu(automata)
+        selected = select_automaton_menu(automata, "Constructing Arena")
         if selected is not None:
             result = construct_arena(selected)
             __save(automata, result, temp_dir)
             show_notification("Bad states:\n" + str(result["states"]["bad"]))
     elif inpt in ["bt"]:
-        selected = select_automaton_menu(automata)
+        selected = select_automaton_menu(automata, "Constructing Attractor")
         if selected is not None:
             result = construct_attractor(selected)
             __save(automata, result, temp_dir)
             show_notification("Bad states:\n" + str(result["states"]["bad"]))
     elif inpt in ["bp"]:
-        selected = select_automaton_menu(automata)
+        selected = select_automaton_menu(automata, "Pruning Arena")
         if selected is not None:
             result = get_controllable(construct_attractor(selected))
             __save(automata, result, temp_dir)

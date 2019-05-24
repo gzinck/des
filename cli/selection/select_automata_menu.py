@@ -17,7 +17,6 @@ def print_selected(automata, selected=None):
 
 
 multiple_menu_msg = '''
-Select Multiple Automata Menu
 -------------------------------------------------------------------
 Type the index of your desired automaton to add/remove it
 #: select the index
@@ -26,8 +25,12 @@ e: exit and cancels selection
 '''
 
 
-def select_automata_menu(automata, min_selection=1):
-    display_menu(multiple_menu_msg)
+def select_automata_menu(automata, min_selection=1, menu_name=None):
+    if menu_name is None:
+        menu_name = "Select Multiple Automata Menu"
+    else:
+        menu_name = "Select Automata for " + menu_name
+    display_menu(menu_name + multiple_menu_msg)
     num_options = len(automata)
     selected = [False] * num_options
 
@@ -58,7 +61,6 @@ def select_automata_menu(automata, min_selection=1):
 
 
 single_menu_msg = '''
-Select Single Automaton Menu
 -------------------------------------------------------------------
 Type the index of your desired automaton to add/remove it
 #: select the index
@@ -66,8 +68,12 @@ e: exit without saving
 '''
 
 
-def select_automaton_menu(automata):
-    display_menu(single_menu_msg)
+def select_automaton_menu(automata, menu_name=None):
+    if menu_name is None:
+        menu_name = "Select Single Automaton Menu"
+    else:
+        menu_name = "Select Automaton for " + menu_name
+    display_menu(menu_name + single_menu_msg)
     num_options = len(automata)
     selected = [False] * num_options
 
