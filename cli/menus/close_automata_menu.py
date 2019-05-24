@@ -1,7 +1,7 @@
-from cli.select_automata_menu import print_selected
-from cli.message import show_error, show_notification
-from cli.save_automaton import save_automaton
-from cli.display_menu import display_menu
+from cli.selection.select_automata_menu import print_selected
+from cli.display.message import show_error, show_notification
+from cli.save_and_visualize import save
+from cli.display.display_menu import display_menu
 
 
 menu_msg = '''
@@ -50,8 +50,7 @@ def close_automata_menu(automata):
                           selected[i]]
                 failed = []
                 for item in result:
-                    show_notification("Select a location to save " + item["name"])
-                    saved = save_automaton(item)
+                    saved = save(item)
                     if saved:
                         automata.remove(item)
                     else:

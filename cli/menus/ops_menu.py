@@ -7,11 +7,12 @@ from basic_ops.controllable import get_controllable
 from arenas.construct_arena import construct_arena
 from arenas.construct_attractor import construct_attractor
 
-from cli.select_automata_menu import select_automata_menu, select_automaton_menu
-from cli.select_observer_menu import select_observer_menu
-from cli.name_automaton_menu import name_automaton_menu
-from cli.message import show_error, show_notification
-from cli.display_menu import display_menu
+from cli.selection.select_automata_menu import select_automata_menu, select_automaton_menu
+from cli.selection.select_observer_menu import select_observer_menu
+from cli.menus.name_automaton_menu import name_automaton_menu
+from cli.display.message import show_error, show_notification
+from cli.display.display_menu import display_menu
+from cli.save_and_visualize import save_temp
 
 
 menu_msg = '''
@@ -36,7 +37,13 @@ bp: build pruned arena (removes bad states using controllable)
 '''
 
 
-def ops_menu(automata):
+def __save(automata, automaton, temp_dir):
+    name_automaton_menu(automata, automaton)
+    automata.append(automaton)
+    save_temp(automaton, temp_dir)
+
+
+def ops_menu(automata, temp_dir):
     display_menu(menu_msg)
 
     inpt = input().lower()
@@ -46,8 +53,7 @@ def ops_menu(automata):
             observer = select_observer_menu(selected)
             if observer is not None:
                 result = determinize(selected, observer)
-                name_automaton_menu(automata, result)
-                automata.append(result)
+                __save(automata, result, temp_dir)
     elif inpt in ["o", "opacity"]:
         selected = select_automaton_menu(automata)
         if selected is not None:
@@ -61,49 +67,42 @@ def ops_menu(automata):
                 print("The system is not opaque for the following secrets:")
                 print([i for i, x in enumerate(result) if x is False])
     elif inpt in ["u", "union", "parallel composition"]:
-        selected = select_automata_menu(automata)
+        selected = select_automata_menu(automata, 2)
         if selected is not None:
             result = union(selected)
-            name_automaton_menu(automata, result)
-            automata.append(result)
+            __save(automata, result, temp_dir)
     elif inpt in ["p", "product", "intersection"]:
-        selected = select_automata_menu(automata)
+        selected = select_automata_menu(automata, 2)
         if selected is not None:
             result = product(selected)
-            name_automaton_menu(automata, result)
-            automata.append(result)
+            __save(automata, result, temp_dir)
     elif inpt in ["a", "accessible"]:
         selected = select_automaton_menu(automata)
         if selected is not None:
             result = get_accessible(selected)
-            name_automaton_menu(automata, result)
-            automata.append(result)
+            __save(automata, result, temp_dir)
     elif inpt in ["c", "controllable"]:
         selected = select_automaton_menu(automata)
         if selected is not None:
             result = get_controllable(selected)
-            name_automaton_menu(automata, result)
-            automata.append(result)
+            __save(automata, result, temp_dir)
     elif inpt in ["ba"]:
         selected = select_automaton_menu(automata)
         if selected is not None:
             result = construct_arena(selected)
-            name_automaton_menu(automata, result)
-            automata.append(result)
+            __save(automata, result, temp_dir)
             show_notification("Bad states:\n" + str(result["states"]["bad"]))
     elif inpt in ["bt"]:
         selected = select_automaton_menu(automata)
         if selected is not None:
             result = construct_attractor(selected)
-            name_automaton_menu(automata, result)
-            automata.append(result)
+            __save(automata, result, temp_dir)
             show_notification("Bad states:\n" + str(result["states"]["bad"]))
     elif inpt in ["bp"]:
         selected = select_automaton_menu(automata)
         if selected is not None:
             result = get_controllable(construct_attractor(selected))
-            name_automaton_menu(automata, result)
-            automata.append(result)
+            __save(automata, result, temp_dir)
     elif inpt in ["e", "exit"]:
         pass
     else:

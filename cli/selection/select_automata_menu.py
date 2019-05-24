@@ -1,5 +1,5 @@
-from cli.message import show_error, show_notification
-from cli.display_menu import display_menu
+from cli.display.message import show_error, show_notification
+from cli.display.display_menu import display_menu
 
 
 def print_selected(automata, selected=None):
@@ -26,7 +26,7 @@ e: exit and cancels selection
 '''
 
 
-def select_automata_menu(automata):
+def select_automata_menu(automata, min_selection=1):
     display_menu(multiple_menu_msg)
     num_options = len(automata)
     selected = [False] * num_options
@@ -46,12 +46,13 @@ def select_automata_menu(automata):
                 return None
             elif inpt in ["s", "save"]:
                 result = [automata[i] for i in range(num_options) if selected[i]]
-                if len(result) > 1:
+                if len(result) >= min_selection:
                     sel = [item["name"] for item in result]
                     show_notification("Selected:\n" + str(sel))
                     return result
                 else:
-                    show_error("At least two automata must be selected")
+                    show_error("At least " + str(min_selection)
+                               + " automata must be selected")
             else:
                 show_error("Command not recognized")
 
