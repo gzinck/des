@@ -11,51 +11,55 @@ from cli.select_automata_menu import select_automata_menu, select_automaton_menu
 from cli.select_observer_menu import select_observer_menu
 from cli.name_automaton_menu import name_automaton_menu
 from cli.message import show_error, show_notification
+from cli.display_menu import display_menu
+
+
+menu_msg = '''
+Operations Menu
+-------------------------------------------------------------------
+Type one of the below commands
+Then, the operation will be performed on the current automaton
+-------------------------------------------------------------------
+d: determinization
+o: check current state opacity
+u: union (parallel composition)
+p: product (intersection)
+a: accessible (prune off states not accessible from initial)
+c: controllable (get the supremal controllable wrt bad states)
+e: exit to main menu
+-------------------------------------------------------------------
+Leaking Secrets (2019 paper) ops
+-------------------------------------------------------------------
+ba: build arena
+bt: build attractor (adds bad states to the arena)
+bp: build pruned arena (removes bad states using controllable)
+'''
 
 
 def ops_menu(automata):
-    print("\n")
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-    print("Operations Menu")
-    print("-------------------------------------------------------------------")
-    print("Type one of the below commands")
-    print("Then, the operation will be performed on the current automaton")
-    print("-------------------------------------------------------------------")
-    print("d: determinization")
-    print("o: check current state opacity")
-    print("u: union (parallel composition)")
-    print("p: product (intersection)")
-    print("a: accessible (prune off states not accessible from initial)")
-    print("c: controllable (get the supremal controllable wrt bad states)")
-    print("e: exit to main menu")
-    print("-------------------------------------------------------------------")
-    print("Leaking Secrets (2019 paper) ops")
-    print("-------------------------------------------------------------------")
-    print("ba: build arena")
-    print("bt: build attractor (adds bad states to the arena)")
-    print("bp: build pruned arena (removes bad states using controllable)")
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-    print()
+    display_menu(menu_msg)
 
     inpt = input().lower()
     if inpt in ["d", "determinization"]:
         selected = select_automaton_menu(automata)
-        observer = select_observer_menu(selected)
-        if selected is not None and observer is not None:
-            result = determinize(selected, observer)
-            name_automaton_menu(automata, result)
-            automata.append(result)
+        if selected is not None:
+            observer = select_observer_menu(selected)
+            if observer is not None:
+                result = determinize(selected, observer)
+                name_automaton_menu(automata, result)
+                automata.append(result)
     elif inpt in ["o", "opacity"]:
         selected = select_automaton_menu(automata)
-        observer = select_observer_menu(selected)
-        if selected is not None and observer is not None:
-            result = check_opacity(selected, observer)
-            print("With respect to the observer " + str(observer) +
-                  ", the system is opaque")
-            print("for the following secrets:")
-            print([i for i, x in enumerate(result) if x is True])
-            print("The system is not opaque for the following secrets:")
-            print([i for i, x in enumerate(result) if x is False])
+        if selected is not None:
+            observer = select_observer_menu(selected)
+            if observer is not None:
+                result = check_opacity(selected, observer)
+                print("With respect to the observer " + str(observer) +
+                      ", the system is opaque")
+                print("for the following secrets:")
+                print([i for i, x in enumerate(result) if x is True])
+                print("The system is not opaque for the following secrets:")
+                print([i for i, x in enumerate(result) if x is False])
     elif inpt in ["u", "union", "parallel composition"]:
         selected = select_automata_menu(automata)
         if selected is not None:
