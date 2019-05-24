@@ -4,14 +4,19 @@ from json import load, JSONDecodeError
 from structure_validation.automaton_validator import validate
 from cli.name_automaton_menu import name_automaton_menu
 from cli.message import show_error
+from cli.display_menu import display_menu
+
+
+menu_msg = '''
+Open File Menu
+-------------------------------------------------------------------
+In the popup window, find the JSON file representing your automaton
+and select open to import it into the application
+'''
 
 
 def open_file_menu(automata):
-    print("\n")
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-    print("Open File Menu")
-    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-    print()
+    display_menu(menu_msg)
     file_path = filedialog.askopenfilename()
     print(file_path)
     if len(file_path) == 0:

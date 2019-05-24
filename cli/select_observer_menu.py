@@ -1,17 +1,26 @@
 from cli.message import show_error, show_notification
+from cli.display_menu import display_menu
+
+
+menu_msg = '''
+Select Observer Menu
+-------------------------------------------------------------------
+Type the index of your desired observer, from 0 to '''
+
+menu_msg_2 = ''' inclusive:
+0 is the system controller
+Subsequent indices are agents
+-------------------------------------------------------------------
+#: select the index
+e: exit without saving
+'''
 
 
 def select_observer_menu(automaton):
     num_obs = len(automaton["events"]["observable"])
-    print("\n")
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    print("Select Observer Menu")
-    print("-------------------------------------------------------------------")
-    print("Type the index of your desired observer, from 0 to "
-          + str(num_obs - 1) + " inclusive")
-    print("#: select the index")
-    print("e: exit without saving")
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+    msg = menu_msg + str(num_obs - 1) + menu_msg_2
+    display_menu(msg)
 
     while True:
         inpt = input()
