@@ -30,14 +30,18 @@ def __identify_secret(automaton, state):
     return "\n[" + marked[:-2] + "]"
 
 
-def visualize(automaton, location=None):
+def visualize(automaton, location=None, view=True):
     """Turns an automaton into a viewable PDF and saves it to the location.
     It also opens the default PDF viewer.
 
     Parameters
     ----------
-    automaton
-    location
+    automaton : dict
+        The dictionary representing the automaton
+    location : str
+        The path with which to save the automaton's image
+    view : bool
+        Whether or not to show the visualized image
 
     Returns
     -------
@@ -73,6 +77,6 @@ def visualize(automaton, location=None):
 
     dot.body.append(generate_event_legend(automaton["events"]))
     if location is not None:
-        dot.render(location, view=True)
+        dot.render(location, view=view)
     else:
-        dot.render(view=True)
+        dot.render(view=view)
