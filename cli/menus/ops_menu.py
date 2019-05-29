@@ -15,6 +15,7 @@ from cli.display.display_menu import display_menu
 from cli.save_and_visualize import save_temp
 
 
+# The message describing what the menu is for
 menu_msg = '''
 Operations Menu
 -------------------------------------------------------------------
@@ -38,15 +39,47 @@ bp: build pruned arena (removes bad states using controllable)
 
 
 def __save(automata, automaton, temp_dir):
+    """Helper method that saves an automaton into the automata list by naming
+    it and appending it to the list. It also visualizes the automaton in the
+    temp folder.
+
+    Parameters
+    ----------
+    automata : list
+        The list of open automata
+    automaton : dict
+        The automaton that is open
+    temp_dir : str
+        The directory containing the temp files (i.e., images and graphviz dot)
+
+    Returns
+    -------
+    None
+    """
     name_automaton_menu(automata, automaton)
     automata.append(automaton)
     save_temp(automaton, temp_dir)
 
 
 def ops_menu(automata, temp_dir):
+    """Opens a menu with options for different operations that can be performed.
+
+    Parameters
+    ----------
+    automata : list
+        The list of automata currently open in the program
+    temp_dir : str
+        The temporary directory for the session
+
+    Returns
+    -------
+    None
+    """
     display_menu(menu_msg)
 
     inpt = input().lower()
+
+    # Choose which operation to perform
     if inpt in ["d", "determinization"]:
         selected = select_automaton_menu(automata, "Determinization")
         if selected is not None:

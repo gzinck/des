@@ -8,6 +8,7 @@ from cli.display.display_menu import display_menu
 from time import sleep
 
 
+# The message describing what the menu is for
 menu_msg = '''
 DESwiz Main Menu
 -------------------------------------------------------------------
@@ -24,8 +25,27 @@ e: exit
 
 
 def main_menu(next_screens, automata, temp_dir):
+    """Main menu for the application with all of the actions that are possible
+    in the application at a high level.
+
+    Parameters
+    ----------
+    next_screens : list
+        The next screens that will be shown (a stack). This is not used much
+        with the current version of the application, but it might be used in
+        the future
+    automata : list
+        List of all automata loaded into the program
+    temp_dir : str
+        The string representing the temporary directory for files
+
+    Returns
+    -------
+    None
+    """
     display_menu(menu_msg)
 
+    # Based on input, choose which type of operation to perform
     inpt = input().lower()
     if inpt in ["o", "open"]:
         open_file_menu(automata, temp_dir)
