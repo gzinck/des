@@ -9,6 +9,7 @@ from cli.display.display_menu import display_menu
 from cli.save_and_visualize import save_temp
 
 
+# The message describing what the menu is for
 menu_msg = '''
 Open File Menu
 -------------------------------------------------------------------
@@ -18,29 +19,50 @@ and select open to import it into the application
 
 
 def open_file_menu(automata, temp_dir):
+    """Opens a file using a file dialog box and immediately visualizes it if it
+    is a valid automaton.
+
+    Parameters
+    ----------
+    automata : list
+        List of currently open automata
+    temp_dir : str
+        The temp directory for placing images
+
+    Returns
+    -------
+    None
+    """
     display_menu(menu_msg)
+
+    # Open the file dialog box
     root = tk.Tk()
     root.withdraw()
     root.lift()
     file_path = filedialog.askopenfilename()
 
-    print(file_path)
+    # Validate that a file was selected
     if len(file_path) == 0:
         show_error("No file selected")
     else:
         curr = None
+
+        # Attempt to load the file's JSON
         with open(file_path) as f:
             try:
                 curr = load(f)
             except JSONDecodeError:
                 show_error("Failed to read JSON")
                 return
+
+        # Attempt to validate the automaton
         try:
             validate(curr)
         except Exception as e:
             show_error("Automaton validation failure: " + str(e))
             return
-        show_notification("Added automaton")
+
+        # Add the automaton
         name_automaton_menu(automata, curr)
         automata.append(curr)
         save_temp(curr, temp_dir)
