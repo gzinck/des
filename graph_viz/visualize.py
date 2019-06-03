@@ -1,6 +1,7 @@
 from graphviz import Digraph
 from graph_viz.event_legend import generate_event_legend
 from basic_ops.helpers.string_helpers import extract_state, extract_event
+import global_settings
 
 
 def __identify_secret(automaton, state):
@@ -86,7 +87,8 @@ def visualize(automaton, location=None, view=True):
             dot.edge(from_state, to_state, label=event)
 
     dot.body.append(generate_event_legend(automaton["events"]))
+    file_type = global_settings.settings["graphviz_file_type"]
     if location is not None:
-        dot.render(location, view=view)
+        dot.render(location, view=view, format=file_type)
     else:
-        dot.render(view=view)
+        dot.render(view=view, format=file_type)

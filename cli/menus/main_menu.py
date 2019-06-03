@@ -5,6 +5,7 @@ from cli.display.message import show_error
 from cli.menus.close_automata_menu import close_automata_menu
 from cli.save_and_visualize import select_and_save_temp, select_and_save
 from cli.display.display_menu import display_menu
+from cli.settings.settings_menu import settings_menu
 from time import sleep
 
 
@@ -19,7 +20,8 @@ l: list all automata
 b: begin to perform operations
 s: save automata
 c: close automata
-v: visualize an automaton
+v: visualize automata
+d: change default settings
 e: exit
 '''
 
@@ -60,6 +62,8 @@ def main_menu(next_screens, automata, temp_dir):
         close_automata_menu(automata)
     elif inpt in ["v", "visualize"]:
         select_and_save_temp(automata, temp_dir)
+    elif inpt in ["d", "settings"]:
+        settings_menu()
     elif inpt in ["e", "exit"]:
         print("Exiting...")
         next_screens.pop()  # Remove main menu from the stack

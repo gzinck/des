@@ -4,11 +4,13 @@ from json import dump
 from graph_viz.visualize import visualize
 from cli.selection.select_automata_menu import select_automata_menu
 from cli.display.message import show_error, show_notification
+import global_settings
 
 
-def save_temp(automaton, temp_dir):
+def save_temp(automaton, temp_dir, must_show=False):
     """Saves an automaton to the temporary directory provided and opens it in a
     PDF viewer.
+    If the user has turned off auto-vis, then nothing happens here.
 
     Parameters
     ----------
@@ -21,14 +23,16 @@ def save_temp(automaton, temp_dir):
     -------
     None
     """
-    index = 0
-    path = temp_dir + "/" + automaton["name"] + str(index)
-    while os.path.isfile(path):
-        index += 1
+    auto_vis = global_settings.settings["graphviz_auto_vis"]
+    if auto_vis or must_show:
+        index = 0
         path = temp_dir + "/" + automaton["name"] + str(index)
-    with open(path + ".json", 'w') as f:  # writing JSON object
-        dump(automaton, f, sort_keys=True, indent=4)
-    visualize(automaton, path)
+        while os.path.isfile(path):
+            index += 1
+            path = temp_dir + "/" + automaton["name"] + str(index)
+        with open(path + ".json", 'w') as f:  # writing JSON object
+            dump(automaton, f, sort_keys=True, indent=4)
+        visualize(automaton, path)
 
 
 def select_and_save_temp(automata, temp_dir):
@@ -46,10 +50,11 @@ def select_and_save_temp(automata, temp_dir):
     -------
     None
     """
-    selected = select_automata_menu(automata)
+    menu_name = "Select Multiple Automata for Visualization"
+    selected = select_automata_menu(automata, menu_name=menu_name)
     if selected is not None:
         for a in selected:
-            save_temp(a, temp_dir)
+            save_temp(a, temp_dir, must_show=True)
 
 
 def save(automaton):
