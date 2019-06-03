@@ -122,6 +122,52 @@ def format_transition(state, event):
     return state + "->" + event
 
 
+def format_observed_secrets(observer, observed_secrets):
+    """Formats an observer's observation of other agents' secrets
+
+    Parameters
+    ----------
+    observer : str
+        The observer that has identified secrets
+    observed_secrets : list
+        List of identified secrets
+
+    Returns
+    -------
+    str
+        The string representing the agent's observations
+    """
+    lst = ""
+    for x in observed_secrets:
+        lst += ", " + str(x)
+    if len(lst) > 2:
+        lst = lst[2:]
+    return str(observer) + "->" + "{" + lst + "}"
+
+
+def format_all_observed_secrets(lst):
+    """Formats all observers' observations of other agents' secrets
+
+    Parameters
+    ----------
+    lst : list
+        List of observations (see format_observed_secrets).
+
+    Returns
+    -------
+    str
+        The string representing all agents' observations
+    """
+    secrets = [format_observed_secrets(*x) for x in lst]
+    secrets.sort()
+    result = ""
+    for s in secrets:
+        result += ", " + s
+    if len(result) > 2:
+        result = result[2:]
+    return result
+
+
 def extract_state(transition):
     """Extracts the name of the origin state given a string representing a
     transition.

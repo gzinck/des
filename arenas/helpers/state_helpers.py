@@ -44,10 +44,8 @@ def find_next_state(automata, state, event):
 
 def check_marked_agents(automata, states):
     """Assuming each automaton represents one agent's view of the system, this
-    returns true if there exists an automaton for which its current state is
-    a marked state with respect to another agent's view. That is, the current
-    state from one agent's perspective is certainly a secret state for another
-    agent.
+    returns a list of agents for which its current state is a marked state
+    from another agent's perspective
 
     Notes
     -----
@@ -66,14 +64,24 @@ def check_marked_agents(automata, states):
 
     Returns
     -------
-    boolean
-        True if the resulting state in the arena should be marked.
+    list
+        List of tuples (agent A, agents B) representing that agent A can observe
+        that all agents in B are in a marked state
     """
-    for index in range(2, len(automata)):
-        # Go through every other automaton's marked states (not the current one)
-        for other_index in [x for x in range(2, len(automata)) if x != index]:
-            # If it is marked
-            marked = automata[index]["states"]["marked"][other_index - 1]
+    automata = automata[1:]  # Ignore the initial real automaton
+    states = states[1:]  # Ignore the initial real automaton
+    observations = []
+    # Go through each automaton's view (except the controller's)
+    for index in range(1, len(automata)):
+        curr_obs = []
+        # Go through every other automaton's views
+        for other_index in [x for x in range(1, len(automata)) if x != index]:
+            # Check if the other automaton's state is marked from current
+            # agent's perspective. Note the minus 1 because the first automaton
+            # is useless.
+            marked = automata[index]["states"]["marked"][other_index]
             if states[index] in marked:
-                return True
-    return False
+                curr_obs.append(other_index)
+        if len(curr_obs) > 0:
+            observations.append(tuple([index, curr_obs]))
+    return observations

@@ -19,15 +19,25 @@ def __identify_secret(automaton, state):
     str
         String representing all observers for which the state is secret
     """
-    marked = ""
-    marked_list = automaton["states"]["marked"]
-    for i in range(len(marked_list)):
-        if state in marked_list[i]:
-            marked += str(i) + ", "
+    # First, check if the automaton has a special "secrets" section which
+    # specifies what states have what secrets
+    if "secrets" in automaton["states"]:
+        secrets = automaton["states"]["secrets"]
+        if state in secrets:
+            return "\n" + secrets[state]
+        else:
+            return ""
+    # Otherwise, just figure out which agents marked the state.
+    else:
+        marked = ""
+        marked_list = automaton["states"]["marked"]
+        for i in range(len(marked_list)):
+            if state in marked_list[i]:
+                marked += str(i) + ", "
 
-    if len(marked) == 0:
-        return marked
-    return "\n[" + marked[:-2] + "]"
+        if len(marked) == 0:
+            return marked
+        return "\nSecret for agent(s): " + marked[:-2]
 
 
 def visualize(automaton, location=None, view=True):

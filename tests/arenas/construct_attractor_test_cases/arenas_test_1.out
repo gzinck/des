@@ -34,6 +34,7 @@
         "initial": ["(q1, {q1}, {q1, q3}, {q1, q2})"],
         "marked": [[]],
         "bad": [],
+        "secrets": {},
         "bad-v1": [],
         "bad-v2": []
     },
