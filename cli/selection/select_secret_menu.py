@@ -4,8 +4,9 @@ from cli.display.display_menu import display_menu
 
 # Part 1 of the message describing what the menu is for
 menu_msg = '''
+Select Secret Menu
 -------------------------------------------------------------------
-Type the index of your desired observer, from 0 to '''
+Type the index of your desired secret, from 0 to '''
 
 # Part 2 of the message describing what the menu is for
 menu_msg_2 = ''' inclusive:
@@ -20,10 +21,8 @@ e: exit without saving
 '''
 
 
-def select_observer_menu(automaton):
-    """Allows the user to select which observer to use for an operation (each
-    observer has an observable alphabet, a controllable alphabet, and a set of
-    secret states).
+def select_secret_menu(automaton):
+    """Allows the user to select which secret to use for an operation.
 
     Parameters
     ----------

@@ -15,7 +15,7 @@ def determinize(automaton, alphabet=0):
     ----------
     automaton : dictionary
         The automaton to determinize
-    alphabet : list
+    alphabet : int
         The alphabet which is considered "observable" when determinizing the
         automaton. If undefined, it equals the attacker's alphabet.
 
@@ -26,9 +26,10 @@ def determinize(automaton, alphabet=0):
 
     Examples
     --------
-    >>> print(determinize(automaton, ["a", "b", "c"]))
+    >>> print(determinize(automaton, 1))
     {
-        # Dictionary for an automaton with only events a, b, and c
+        # Dictionary for an automaton with only events in the observable
+        # alphabet for agent 1 (which is indexed starting at 1)
     }
     >>> print(determinize(automaton))
     {

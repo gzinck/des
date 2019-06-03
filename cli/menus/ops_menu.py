@@ -4,11 +4,14 @@ from basic_ops.product import product
 from basic_ops.union import union
 from basic_ops.accessible import get_accessible
 from basic_ops.controllable import get_controllable
+from basic_ops.coaccessible import get_coaccessible
+from basic_ops.leakage_automaton import create_leakage_automaton
 from arenas.construct_arena import construct_arena
 from arenas.construct_attractor import construct_attractor
 
 from cli.selection.select_automata_menu import select_automata_menu, select_automaton_menu
 from cli.selection.select_observer_menu import select_observer_menu
+from cli.selection.select_secret_menu import select_secret_menu
 from cli.menus.name_automaton_menu import name_automaton_menu
 from cli.display.message import show_error, show_notification
 from cli.display.display_menu import display_menu
@@ -28,6 +31,9 @@ u: union (parallel composition)
 p: product (intersection)
 a: accessible (prune off states not accessible from initial)
 c: controllable (get the supremal controllable wrt bad states)
+ca: coaccessible (prune off states that do not reach marked states)
+l: create leakage automaton with respect to an agent's perspective
+   and another agent's secret
 e: exit to main menu
 -------------------------------------------------------------------
 Leaking Secrets (2019 paper) ops
@@ -115,10 +121,24 @@ def ops_menu(automata, temp_dir):
             result = get_accessible(selected)
             __save(automata, result, temp_dir)
     elif inpt in ["c", "controllable"]:
-        selected = select_automaton_menu(automata, "Controllable Operation")
+        selected = select_automaton_menu(automata, "Controllability Operation")
         if selected is not None:
             result = get_controllable(selected)
             __save(automata, result, temp_dir)
+    elif inpt in ["ca", "coaccessible"]:
+        selected = select_automaton_menu(automata, "Coaccessibility Operation")
+        if selected is not None:
+            result = get_coaccessible(selected)
+            __save(automata, result, temp_dir)
+    elif inpt in ["l", "leakage"]:
+        selected = select_automaton_menu(automata, "Get Leakage Automaton")
+        if selected is not None:
+            observer = select_observer_menu(selected)
+            if observer is not None:
+                secret = select_secret_menu(selected)
+                if secret is not None:
+                    result = create_leakage_automaton(selected, observer, secret)
+                    __save(automata, result, temp_dir)
     elif inpt in ["ba"]:
         selected = select_automaton_menu(automata, "Constructing Arena")
         if selected is not None:
