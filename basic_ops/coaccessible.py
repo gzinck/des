@@ -39,7 +39,8 @@ def get_coaccessible(automaton):
                     if from_state not in accessible_states:
                         accessible_states.add(from_state)
                     if k in accessible_trans:
-                        accessible_trans[k].append(s)
+                        if s not in accessible_trans[k]:
+                            accessible_trans[k].append(s)
                     else:
                         accessible_trans[k] = [s]
 

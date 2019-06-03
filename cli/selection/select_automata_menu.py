@@ -31,9 +31,6 @@ def print_selected(automata, selected=None):
         if i != len(automata) - 1:
             msg += "\n"
 
-    if selected is not None:
-        msg += "\n"
-        msg += "Continue to select automata, or type s to finish"
     # Show the message to the user
     show_notification(msg)
 
