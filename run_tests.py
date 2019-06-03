@@ -7,6 +7,7 @@ import unittest
 import tests.product.product_test as product
 import tests.union.union_test as union
 import tests.accessible.accessible_test as accessible
+import tests.coaccessible.coaccessible_test as coaccessible
 import tests.controllable.controllable_test as controllable
 import tests.determinize.determinize_test as determinize
 import tests.opacity.opacity_test as opacity
@@ -22,6 +23,7 @@ suite = unittest.TestSuite()
 suite.addTests(loader.loadTestsFromModule(product))
 suite.addTests(loader.loadTestsFromModule(union))
 suite.addTests(loader.loadTestsFromModule(accessible))
+suite.addTests(loader.loadTestsFromModule(coaccessible))
 suite.addTests(loader.loadTestsFromModule(controllable))
 suite.addTests(loader.loadTestsFromModule(determinize))
 suite.addTests(loader.loadTestsFromModule(opacity))

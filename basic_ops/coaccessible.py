@@ -32,12 +32,16 @@ def get_coaccessible(automaton):
     while prv_len < curr_len:
         prv_len = curr_len
         # For every trans that goes to a marked state, add it
-        for k, v in transitions:
-            if v in accessible_states:
-                from_state = extract_state(k)
-                if from_state not in accessible_states:
-                    accessible_states.add(from_state)
-                accessible_trans[k] = v
+        for k, v in transitions.items():
+            for s in v:
+                if s in accessible_states:
+                    from_state = extract_state(k)
+                    if from_state not in accessible_states:
+                        accessible_states.add(from_state)
+                    if k in accessible_trans:
+                        accessible_trans[k].append(s)
+                    else:
+                        accessible_trans[k] = [s]
 
         curr_len = len(accessible_states)
 
