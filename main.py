@@ -1,9 +1,13 @@
 from cli.menus.main_menu import main_menu
+import global_settings
 from tempfile import TemporaryDirectory
 
 """
 This main file runs the DES application on the command line.
 """
+
+# Initialize settings
+global_settings.initialize()
 
 # Maintain a stack for the screens shown (this avoids lots of recursion)
 screens = [main_menu]
