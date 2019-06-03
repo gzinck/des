@@ -52,7 +52,7 @@ def get_coaccessible(automaton):
         for x in automaton["states"]["marked"]
     ]
     # Deal with all the various possible types of states
-    all_state_types = ["bad", "v1", "v2", "bad-v1", "bad-v2"]
+    all_state_types = ["bad", "initial", "v1", "v2", "bad-v1", "bad-v2"]
     state_types = [x for x in all_state_types if x in automaton["states"]]
     for state_type in state_types:
         automaton["states"][state_type] = [

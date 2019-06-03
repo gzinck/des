@@ -1,0 +1,29 @@
+{
+    "events": {
+        "all": [
+            "a"
+        ],
+        "controllable": [
+            [
+                "a"
+            ]
+        ],
+        "observable": [
+            [
+                "a"
+            ]
+        ]
+    },
+    "states": {
+        "all": [],
+        "bad": [],
+        "initial": [],
+        "marked": [
+            []
+        ]
+    },
+    "transitions": {
+        "all": {},
+        "bad": {}
+    }
+}
