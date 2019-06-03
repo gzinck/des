@@ -1,4 +1,16 @@
 def __make_event_list(events):
+    """Makes a list of events separated by commas (string form)
+
+    Parameters
+    ----------
+    events : list
+        List of events to stringify
+
+    Returns
+    -------
+    str
+        The list of events (sorted)
+    """
     events.sort()
     string = ""
     for event in events:
@@ -25,7 +37,7 @@ def generate_event_legend(events):
         rankdir=LR
         node [shape=plaintext]
         subgraph cluster_01 {
-            label = "Legend\n\nNote that square brackets indicate for which observers\nthe state is secret";
+            label = "Legend\n\nA state with an arrow to other states (i.e., 2->{3,4})\nindicates agent 2 has identified agent 3 and 4's secrets";
         '''
     legend_end = '}'
 

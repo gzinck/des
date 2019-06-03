@@ -1,6 +1,6 @@
 from basic_ops.determinize import determinize
 from arenas.helpers.control_actions import get_valid_control_actions
-from arenas.helpers.state_helpers import find_next_state, check_marked_agents
+from arenas.helpers.state_helpers import check_marked_agents
 from arenas.helpers.construct_arena_helpers import add_v2_transitions
 from basic_ops.helpers.string_helpers import *
 
@@ -64,6 +64,8 @@ def construct_arena(automaton):
     v1_queue = [initial]
     v1_visited = {initial_str}
     v2_visited = set()
+    # Keep track of secrets
+    secrets = {}
 
     # Keep going through our queue of controller states until done
     while len(v1_queue) > 0:
@@ -71,8 +73,10 @@ def construct_arena(automaton):
         curr_str = format_state(curr)
 
         # Check if we have a bad state
-        if check_marked_agents(all_automata, curr):
+        marked_obs = check_marked_agents(all_automata, curr)
+        if len(marked_obs) != 0:
             bad_states.append(curr_str)
+            secrets[curr_str] = format_all_observed_secrets(marked_obs)
 
         # Identify what events are accessible from here
         events = get_valid_control_actions(all_automata[0], curr[0], all_events)
@@ -110,7 +114,8 @@ def construct_arena(automaton):
             "v2": list(v2_visited),
             "initial": [initial_str],
             "marked": [bad_states],
-            "bad": bad_states
+            "bad": bad_states,
+            "secrets": secrets  # Indicates which agent sees what in composition
         },
         "transitions": {
             "all": {**v1_trans, **v2_trans},
