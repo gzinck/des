@@ -16,8 +16,14 @@ class SaveAutomatonPopup(Popup):
     def on_save(self):
         location = self.ids.file_chooser.path + "/" + self.ids.text_input.text
 
+        # Make sure temp folder is not saved
+        temp = self.automaton["temp"]
+        del self.automaton["temp"]
+
         with open(location + ".json", 'w') as f:  # writing JSON object
             dump(self.automaton, f, sort_keys=True, indent=4)
+
+        self.automaton["temp"] = temp
 
         # visualize(automaton, location, view=False)
         print("Saved to " + location)

@@ -1,0 +1,24 @@
+<AutomatonView>:
+    size_hint_x: 0.7
+    ScrollView:
+        size_hint: 1, 1
+        do_scroll_y: True
+        do_scroll_x: True
+
+        Image:
+            id: image
+            source: 'gui/res/no_automaton_selected.png'
+            size_hint_x: None
+            size_hint_y: None
+            keep_ratio: True
+            size: 1300, 1300
+            allow_stretch: True
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 0.2, 0.1
+        Button:
+            text: '-'
+            on_press: root.on_zoom_out()
+        Button:
+            text: '+'
+            on_press: root.on_zoom_in()

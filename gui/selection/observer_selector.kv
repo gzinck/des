@@ -1,0 +1,29 @@
+<ObserverLabel>:
+    orientation: 'horizontal'
+    CheckBox:
+        id: 'section_checkbox'
+        group: '1'
+        size_hint_x: 0.1
+        on_active: root.on_checkbox_active(self.active)
+    Label:
+        text: root.text
+
+<ObserverSelector>:
+    size_hint: 0.9, 0.9
+    pos_hint: {"right":0.95,"top":0.95}
+    title: 'Choose One Automaton'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            id: list
+        BoxLayout:
+            size_hint_y: 0.1
+            orientation: 'horizontal'
+            Button:
+                text: 'Cancel'
+                on_release: root.dismiss()
+            Button:
+                id: confirm
+                text: 'Confirm'
+                on_press: root.on_confirm()

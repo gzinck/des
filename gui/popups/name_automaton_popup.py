@@ -2,6 +2,8 @@ from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.properties import DictProperty, StringProperty
 
+from tempfile import TemporaryDirectory
+
 
 class NameAutomatonPopup(Popup):
     automaton = DictProperty()
@@ -31,6 +33,8 @@ class NameAutomatonPopup(Popup):
     def on_confirm(self):
         app = App.get_running_app()
         self.automaton["name"] = self.name
+        with TemporaryDirectory() as temp_dir:
+            self.automaton["temp"] = temp_dir
         app.open_automata.append(self.automaton)
         app.current_automaton = self.automaton
         self.dismiss()

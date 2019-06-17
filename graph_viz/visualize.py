@@ -56,7 +56,8 @@ def visualize(automaton, location=None, view=True):
 
     Returns
     -------
-    None
+    str
+        The path to the newly created image
     """
     dot = Digraph(automaton["name"])
 
@@ -90,5 +91,7 @@ def visualize(automaton, location=None, view=True):
     file_type = global_settings.settings["graphviz_file_type"]
     if location is not None:
         dot.render(location, view=view, format=file_type)
+        return location + "." + file_type
     else:
         dot.render(view=view, format=file_type)
+        return None

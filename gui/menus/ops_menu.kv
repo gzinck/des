@@ -1,0 +1,13 @@
+#:include gui/selection/single_automaton_selector.kv
+#:include gui/selection/observer_selector.kv
+
+<OpsMenu>:
+    name: 'opsMenu'
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, 1
+        Label:
+            text: 'Basic Operations'
+        Button:
+            text: 'Determinize'
+            on_press: root.determinize()
