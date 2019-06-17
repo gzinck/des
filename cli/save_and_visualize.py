@@ -18,6 +18,8 @@ def save_temp(automaton, temp_dir, must_show=False):
         The automaton to save in the temp directory (and visualize)
     temp_dir : str
         Path to the temporary directory
+    must_show : bool
+        Whether to show the image automatically or not, regardless of settings
 
     Returns
     -------

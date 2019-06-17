@@ -1,0 +1,49 @@
+#:include gui/menus/file_menu.kv
+
+<Menus>:
+    FileMenu:
+    OperationsMenu:
+
+<OperationsMenu>:
+    name: 'operationsMenu'
+    Button:
+        text: 'woah'
+
+BoxLayout:
+    orientation: 'horizontal'
+
+    BoxLayout:
+        size_hint_x: .3
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: .1
+            orientation: 'horizontal'
+            Button:
+                text: 'Create'
+            Button:
+                text: 'File'
+                on_release:
+                    root.ids.menus.current = 'fileMenu'
+            Button:
+                text: 'Operations'
+                on_release:
+                    root.ids.menus.current = 'operationsMenu'
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            height: self.height
+
+            Menus:
+                id: menus
+
+    ScrollView:
+        size_hint_x: .7
+        do_scroll_y: True
+        do_scroll_x: True
+
+        Image:
+            source: 'gui/res/no_automaton_selected.png'
+            size_hint_x: None
+            size_hint_y: None
+            keep_ratio: True
+            size: 1000, 1000

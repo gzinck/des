@@ -1,0 +1,39 @@
+#:include gui/popups/close_automaton_popup.kv
+#:include gui/popups/open_automaton_popup.kv
+#:include gui/popups/save_automaton_popup.kv
+
+<OpenAutomaton>:
+    rows: 1
+    size_hint_y: 0.1
+    Button:
+        text: root.name
+        on_press: root.on_select()
+        size_hint_x: 0.6
+    Button:
+        text: 'Save'
+        on_press: root.on_save()
+        size_hint_x: 0.2
+    Button:
+        text: 'Close'
+        on_press: root.on_close()
+        size_hint_x: 0.2
+
+<OpenAutomata>:
+    cols: 1
+
+<FileMenu>:
+    name: 'fileMenu'
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1,1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: .1
+            Button:
+                text: 'Open JSON'
+                on_press: root.on_open()
+        Label:
+            size_hint_y: .05
+            text: 'Click an automaton below to view it'
+            text_size: self.size
+        OpenAutomata:

@@ -1,4 +1,5 @@
 {
+    "name": "you",
     "events": {
         "all": ["a", "b", "{a}", "{b}", "{a, b}"],
         "controllable": [

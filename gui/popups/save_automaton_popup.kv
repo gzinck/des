@@ -1,0 +1,20 @@
+<SaveAutomatonPopup>:
+    size_hint: 0.9, 0.9
+    pos_hint: {"right":0.95,"top":0.95}
+    title: 'Save Automaton'
+    BoxLayout:
+        orientation: 'vertical'
+        FileChooserListView:
+            id: file_chooser
+            path: '/Users/gzinck/Git/des/tests/arenas/construct_attractor_test_cases'
+        BoxLayout:
+            size_hint_y: 0.1
+            orientation: 'horizontal'
+            TextInput:
+                id: text_input
+            Button:
+                text: 'Cancel'
+                on_release: root.dismiss()
+            Button:
+                text: 'Save'
+                on_press: root.on_save()
