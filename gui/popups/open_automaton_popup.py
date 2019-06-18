@@ -6,6 +6,7 @@ from json import load, JSONDecodeError
 
 from structure_validation.automaton_validator import validate
 from gui.popups.name_automaton_popup import NameAutomatonPopup
+from gui.popups.message_popup import MessagePopup
 
 import global_settings
 
@@ -30,8 +31,9 @@ class OpenAutomatonPopup(Popup):
             with open(item) as f:
                 try:
                     curr = load(f)
-                except JSONDecodeError:
-                    print("Failed to read JSON")
+                except (JSONDecodeError, UnicodeDecodeError):
+                    popup = MessagePopup(title="Error", message="Failed to read JSON")
+                    popup.open()
                     return
 
             # Attempt to validate the automaton
@@ -40,4 +42,7 @@ class OpenAutomatonPopup(Popup):
                 popup = NameAutomatonPopup(automaton=curr)
                 popup.open()
             except ValueError as e:
-                print("Automaton validation failure: " + str(e))
+                popup = MessagePopup(title="Error",
+                                     message="Automaton validation failure: "
+                                     + str(e))
+                popup.open()

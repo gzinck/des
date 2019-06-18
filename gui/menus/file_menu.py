@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.gridlayout import GridLayout
-from kivy.properties import ListProperty, DictProperty, StringProperty
+from kivy.properties import ListProperty, DictProperty, StringProperty, BooleanProperty
 
 from gui.popups.close_automaton_popup import CloseAutomatonPopup
 from gui.popups.open_automaton_popup import OpenAutomatonPopup
@@ -15,6 +15,7 @@ class OpenAutomaton(GridLayout):
     """
     name = StringProperty()
     automaton = DictProperty()
+    open = BooleanProperty()
 
     def on_select(self):
         """When selecting the automaton, the application should make this the
@@ -44,12 +45,20 @@ class OpenAutomata(GridLayout):
         super(OpenAutomata, self).__init__(**kwargs)
         app = App.get_running_app()
         app.bind(open_automata=self.on_open_automata)
+        app.bind(current_automaton=self.on_current_automaton)
 
     def on_open_automata(self, instance, value):
         self.clear_widgets()
         app = App.get_running_app()
         for item in app.open_automata:
             self.add_widget(OpenAutomaton(name=item["name"], automaton=item))
+
+    def on_current_automaton(self, instance, value):
+        for widget in self.children:
+            if widget.name == value["name"]:
+                widget.open = True
+            else:
+                widget.open = False
 
 
 class FileMenu(Screen):
