@@ -10,6 +10,9 @@
         size_hint: 1, 1
         Label:
             text: 'Basic Operations'
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1]
         Button:
             text: 'Determinize'
             on_press: root.determinize()
@@ -28,3 +31,23 @@
         Button:
             text: 'Get Coaccessible'
             on_press: root.coaccessible()
+        Button:
+            text: 'Get Controllable'
+            on_press: root.controllable()
+        Button:
+            text: 'Get Leakage Automaton'
+            on_press: root.leakage()
+        Label:
+            text: 'Arena Operations (Leaking Secrets, 2019)'
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1]
+        Button:
+            text: 'Build Arena'
+            on_press: root.build_arena()
+        Button:
+            text: 'Build Attractor'
+            on_press: root.build_attractor()
+        Button:
+            text: 'Prune Arena'
+            on_press: root.prune_arena()

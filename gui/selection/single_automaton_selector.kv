@@ -1,10 +1,18 @@
 <SelectableAutomatonLabel>:
     orientation: 'horizontal'
-    CheckBox:
-        id: 'section_checkbox'
-        group: '1'
+    BoxLayout:
+        orientation: 'horizontal'
         size_hint_x: 0.1
-        on_active: root.on_checkbox_active(self.active)
+        canvas:
+            Color:
+                rgb: 1, 1, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        CheckBox:
+            id: 'section_checkbox'
+            group: '1'
+            on_active: root.on_checkbox_active(self.active)
     Label:
         text: root.text
 

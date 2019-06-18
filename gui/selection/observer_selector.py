@@ -32,5 +32,4 @@ class ObserverSelector(Popup):
         for option in self.ids.list.children:
             if option.selected:
                 self.selected.append(option.ind)
-        print("Selected observer(s):", self.selected)
         self.dismiss()

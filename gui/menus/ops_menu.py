@@ -14,6 +14,11 @@ from basic_ops.union import union
 from basic_ops.product import product
 from basic_ops.accessible import get_accessible
 from basic_ops.coaccessible import get_coaccessible
+from basic_ops.controllable import get_controllable
+from basic_ops.leakage_automaton import create_leakage_automaton
+
+from arenas.construct_arena import construct_arena
+from arenas.construct_attractor import construct_attractor
 
 
 class OpsMenu(Screen):
@@ -144,3 +149,93 @@ class OpsMenu(Screen):
             popup = NameAutomatonPopup(automaton=new_automaton)
             popup.open()
 
+    def controllable(self):
+        popup = SingleAutomatonSelector()
+        popup.bind(on_dismiss=self.controllable_perform_operation)
+        popup.open()
+
+    def controllable_perform_operation(self, instance):
+        selected_name = instance.selected
+        app = App.get_running_app()
+        selected = [x for x in app.open_automata if x["name"] == selected_name]
+        if len(selected) == 1:
+            new_automaton = get_controllable(selected[0])
+            popup = NameAutomatonPopup(automaton=new_automaton)
+            popup.open()
+
+    def leakage(self):
+        popup = SingleAutomatonSelector()
+        popup.bind(on_dismiss=self.leakage_get_observer_1)
+        popup.open()
+
+    def leakage_get_observer_1(self, instance):
+        name = instance.selected
+        app = App.get_running_app()
+        selected = [x for x in app.open_automata if x["name"] == name]
+        if len(selected) == 1:
+            selected = selected[0]
+            print("Selected the automaton...")
+            popup = ObserverSelector(selected)
+            popup.bind(on_dismiss=lambda obs_selector:
+                       self.leakage_get_observer_2(obs_selector, selected))
+            popup.open()
+
+    def leakage_get_observer_2(self, instance, automaton):
+        observer = instance.selected
+        if len(observer) != 0:
+            observer = observer[0]
+            popup = ObserverSelector(automaton, title="Select a Secret")
+            popup.bind(on_dismiss=lambda obs_selector:
+                       self.leakage_perform_operation(obs_selector, automaton,
+                                                      observer))
+            popup.open()
+
+    def leakage_perform_operation(self, instance, automaton, observer):
+        secret = instance.selected
+        if len(secret) != 0:
+            secret = secret[0]
+            result = create_leakage_automaton(automaton, observer, secret)
+            popup = NameAutomatonPopup(automaton=result)
+            popup.open()
+
+    def build_arena(self):
+        popup = SingleAutomatonSelector()
+        popup.bind(on_dismiss=self.build_arena_perform_operation)
+        popup.open()
+
+    def build_arena_perform_operation(self, instance):
+        selected_name = instance.selected
+        app = App.get_running_app()
+        selected = [x for x in app.open_automata if x["name"] == selected_name]
+        if len(selected) == 1:
+            new_automaton = construct_arena(selected[0])
+            popup = NameAutomatonPopup(automaton=new_automaton)
+            popup.open()
+
+    def build_attractor(self):
+        popup = SingleAutomatonSelector()
+        popup.bind(on_dismiss=self.build_attractor_perform_operation)
+        popup.open()
+
+    def build_attractor_perform_operation(self, instance):
+        selected_name = instance.selected
+        app = App.get_running_app()
+        selected = [x for x in app.open_automata if x["name"] == selected_name]
+        if len(selected) == 1:
+            new_automaton = construct_attractor(selected[0])
+            popup = NameAutomatonPopup(automaton=new_automaton)
+            popup.open()
+
+    def prune_arena(self):
+        popup = SingleAutomatonSelector()
+        popup.bind(on_dismiss=self.prune_arena_perform_operation)
+        popup.open()
+
+    def prune_arena_perform_operation(self, instance):
+        selected_name = instance.selected
+        app = App.get_running_app()
+        selected = [x for x in app.open_automata if x["name"] == selected_name]
+        if len(selected) == 1:
+            new_automaton = get_controllable(construct_attractor(selected[0]))
+            popup = NameAutomatonPopup(automaton=new_automaton)
+            popup.open()
