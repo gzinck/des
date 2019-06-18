@@ -15,8 +15,10 @@ class AutomatonView(FloatLayout):
         app.bind(current_automaton=self.on_current_automaton)
 
     def on_current_automaton(self, instance, value):
-        if "temp" in value:
-            path = value["temp"] + "/" + value["name"]
+        app = App.get_running_app()
+        name = value["name"]
+        if name in app.temp_folders:
+            path = app.temp_folders[name] + "/" + name
             img_path = path + "." + global_settings.settings["graphviz_file_type"]
             if not os.path.isfile(path + "." + global_settings.settings["graphviz_file_type"]):
                 img_path = visualize(value, path, view=False)

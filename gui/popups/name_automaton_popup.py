@@ -12,11 +12,9 @@ class NameAutomatonPopup(Popup):
     def __init__(self, **kwargs):
         super(NameAutomatonPopup, self).__init__(**kwargs)
         if "name" in self.automaton:
-            print("The name is...", self.automaton["name"])
             self.ids.text_input.text = self.automaton["name"]
 
     def on_text(self, text):
-        print(text)
         self.name = text
         app = App.get_running_app()
         all_names = [a["name"] for a in app.open_automata]
@@ -32,9 +30,10 @@ class NameAutomatonPopup(Popup):
 
     def on_confirm(self):
         app = App.get_running_app()
-        self.automaton["name"] = self.name
+        self.automaton["name"] = str(self.name)
         with TemporaryDirectory() as temp_dir:
-            self.automaton["temp"] = temp_dir
-        app.open_automata.append(self.automaton)
-        app.current_automaton = self.automaton
+            app.temp_folders[self.name] = temp_dir
+        a = dict(self.automaton)
+        app.open_automata.append(a)
+        app.current_automaton = a
         self.dismiss()

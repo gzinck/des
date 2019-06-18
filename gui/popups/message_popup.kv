@@ -1,0 +1,12 @@
+<MessagePopup>:
+    size_hint: 0.5, 0.5
+    pos_hint: {"right":0.75,"top":0.75}
+    title: root.title
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.message
+            text_size: self.size
+        Button:
+            text: 'Close'
+            on_release: root.dismiss()

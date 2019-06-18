@@ -16,10 +16,12 @@ class ObserverLabel(BoxLayout):
 class ObserverSelector(Popup):
     selected = ListProperty()
     automaton = DictProperty()
+    title = StringProperty()
 
-    def __init__(self, automaton, **kwargs):
+    def __init__(self, automaton, title="Select an Observer", **kwargs):
         super(ObserverSelector, self).__init__(**kwargs)
         self.automaton = automaton
+        self.title = title
 
         self.ids.list.add_widget(ObserverLabel(text="Global Controller", ind=0))
         for i in range(1, len(self.automaton["events"]["observable"])):

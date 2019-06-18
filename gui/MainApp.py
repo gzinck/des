@@ -18,6 +18,7 @@ class MainApp(App):
     """
     open_automata = ListProperty()
     current_automaton = DictProperty()
+    temp_folders = DictProperty()
 
     # def on_open_automata(self, instance, value):
     #     print("Updated in main app")

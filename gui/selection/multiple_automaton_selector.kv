@@ -1,17 +1,16 @@
-<ObserverLabel>:
+<MultiSelectableAutomatonLabel>:
     orientation: 'horizontal'
     CheckBox:
         id: 'section_checkbox'
-        group: '1'
         size_hint_x: 0.1
         on_active: root.on_checkbox_active(self.active)
     Label:
         text: root.text
 
-<ObserverSelector>:
+<MultipleAutomatonSelector>:
     size_hint: 0.9, 0.9
     pos_hint: {"right":0.95,"top":0.95}
-    title: root.title
+    title: 'Choose Multiple Automata'
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:

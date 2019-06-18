@@ -1,5 +1,7 @@
 #:include gui/selection/single_automaton_selector.kv
+#:include gui/selection/multiple_automaton_selector.kv
 #:include gui/selection/observer_selector.kv
+#:include gui/popups/message_popup.kv
 
 <OpsMenu>:
     name: 'opsMenu'
@@ -11,3 +13,18 @@
         Button:
             text: 'Determinize'
             on_press: root.determinize()
+        Button:
+            text: 'Check Opacity'
+            on_press: root.opacity_operation()
+        Button:
+            text: 'Union'
+            on_press: root.union()
+        Button:
+            text: 'Product'
+            on_press: root.product()
+        Button:
+            text: 'Get Accessible'
+            on_press: root.accessible()
+        Button:
+            text: 'Get Coaccessible'
+            on_press: root.coaccessible()
