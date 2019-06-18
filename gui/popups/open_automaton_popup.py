@@ -7,15 +7,24 @@ from json import load, JSONDecodeError
 from structure_validation.automaton_validator import validate
 from gui.popups.name_automaton_popup import NameAutomatonPopup
 
+import global_settings
+
 
 class OpenAutomatonPopup(Popup):
     name = StringProperty()
     selected = ListProperty()
+    default_path = StringProperty()
+
+    def __init__(self, **kwargs):
+        super(OpenAutomatonPopup, self).__init__(**kwargs)
+        self.default_path = global_settings.settings["default_path"]
 
     def on_select(self, selection):
         self.selected = selection
 
     def open_automaton(self):
+        if not global_settings.settings["default_path_set"]:
+            global_settings.update("default_path", self.ids.file_chooser.path)
         for item in self.selected:
             # Attempt to load the file's JSON
             with open(item) as f:

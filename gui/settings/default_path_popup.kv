@@ -1,7 +1,7 @@
-<SaveAutomatonPopup>:
+<DefaultPathPopup>:
     size_hint: 0.9, 0.9
     pos_hint: {"right":0.95,"top":0.95}
-    title: 'Save Automaton'
+    title: 'Choose Default File Path'
     BoxLayout:
         orientation: 'vertical'
         FileChooserListView:
@@ -10,11 +10,9 @@
         BoxLayout:
             size_hint_y: 0.1
             orientation: 'horizontal'
-            TextInput:
-                id: text_input
             Button:
                 text: 'Cancel'
                 on_release: root.dismiss()
             Button:
-                text: 'Save'
+                text: 'Select'
                 on_press: root.on_save()

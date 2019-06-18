@@ -7,8 +7,9 @@
     BoxLayout:
         orientation: 'vertical'
         FileChooserListView:
+            id: file_chooser
             on_selection: root.on_select(self.selection)
-            path: '/Users/gzinck/Git/des/tests/arenas/construct_attractor_test_cases'
+            path: root.default_path
         BoxLayout:
             size_hint_y: 0.1
             orientation: 'horizontal'

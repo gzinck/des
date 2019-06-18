@@ -8,7 +8,9 @@ settings_file = "settings.ini"
 # The default settings
 defaults = {
     "graphviz_file_type": "pdf",
-    "graphviz_auto_vis": True
+    "graphviz_auto_vis": True,
+    "default_path": "/",
+    "default_path_set": False
 }
 settings = None
 

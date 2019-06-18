@@ -6,6 +6,7 @@ from kivy.properties import ListProperty, DictProperty, StringProperty
 from gui.popups.close_automaton_popup import CloseAutomatonPopup
 from gui.popups.open_automaton_popup import OpenAutomatonPopup
 from gui.popups.save_automaton_popup import SaveAutomatonPopup
+from gui.settings.settings_popup import SettingsPopup
 
 
 class OpenAutomaton(GridLayout):
@@ -27,7 +28,6 @@ class OpenAutomaton(GridLayout):
         """
         popup = SaveAutomatonPopup(automaton=self.automaton)
         popup.open()
-        print("We're gonna save this automaton!")
 
     def on_close(self):
         """When clicking close, the automaton should close the automaton.
@@ -55,4 +55,8 @@ class OpenAutomata(GridLayout):
 class FileMenu(Screen):
     def on_open(self, *args):
         popup = OpenAutomatonPopup()
+        popup.open()
+
+    def on_settings(self, *args):
+        popup = SettingsPopup()
         popup.open()

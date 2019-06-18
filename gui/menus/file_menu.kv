@@ -1,6 +1,7 @@
 #:include gui/popups/close_automaton_popup.kv
 #:include gui/popups/open_automaton_popup.kv
 #:include gui/popups/save_automaton_popup.kv
+#:include gui/settings/settings_popup.kv
 
 <OpenAutomaton>:
     rows: 1
@@ -32,6 +33,9 @@
             Button:
                 text: 'Open JSON'
                 on_press: root.on_open()
+            Button:
+                text: 'Settings'
+                on_press: root.on_settings()
         Label:
             size_hint_y: .05
             text: 'Click an automaton below to view it'

@@ -1,0 +1,62 @@
+#:include gui/settings/default_path_popup.kv
+
+<FileTypeDropDown>:
+    orientation: 'vertical'
+
+    Spinner:
+        #size_hint: None, none
+        #size: 100, 44
+        #pos_hint: {'center': (.5, .5)}
+        text: root.file_type
+        values: 'jpg', 'png', 'pdf', 'svg'
+        on_text: root.on_text(self.text)
+
+
+<SettingsPopup>:
+    size_hint: 0.9, 0.9
+    pos_hint: {"right":0.95,"top":0.95}
+    title: 'Settings'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                size_hint_x: 0.25
+                text: 'Default File Type:'
+            Label:
+                size_hint_x: 0.9
+                text: 'Select JPG or PNG for best results'
+            FileTypeDropDown:
+                size_hint_x: 0.25
+                id: file_type_dropdown
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                size_hint_x: 0.25
+                text: 'Default Path:'
+            Label:
+                size_hint_x: 0.9
+                text: root.default_path
+            Button:
+                size_hint_x: 0.25
+                text: 'Edit'
+                on_release: root.on_choose_default_path()
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                size_hint_x: 0.25
+                text: 'Freeze Default Path'
+            Label:
+                size_hint_x: 0.9
+                text: 'Prevents default path from changing'
+            Button:
+                size_hint_x: 0.25
+                id: freeze_default_btn
+                on_release: root.on_toggle_freeze_default_path()
+        BoxLayout:
+            Button:
+                text: 'Cancel'
+                on_release: root.dismiss()
+            Button:
+                text: 'Save'
+                on_press: root.on_save()
