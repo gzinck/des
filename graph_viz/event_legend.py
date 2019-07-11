@@ -37,7 +37,7 @@ def generate_event_legend(events):
         rankdir=LR
         node [shape=plaintext]
         subgraph cluster_01 {
-            label = "Legend\n\nA state with an arrow to other states (i.e., 2->{3,4})\nindicates agent 2 has identified agent 3 and 4's secrets";
+            label = "Legend\n\nA state with an arrow to other states (i.e., 2->{3,4})\nindicates agent 2 has identified agent 3 and 4's secrets.\nThese secret states have double circle/square shapes.";
         '''
     legend_end = '}'
 
