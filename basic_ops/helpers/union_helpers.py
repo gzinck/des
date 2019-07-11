@@ -42,11 +42,12 @@ def union_events(automata):
 
     # For each automaton, add its events
     for a in automata:
+        num_players_local = len(a["events"]["controllable"])
         events = a["events"]
         all_events = all_events.union(set(events["all"]))
 
         # Add the controllable and observable events from each of the automata
-        for i in range(num_players):
+        for i in range(min(num_players, num_players_local)):
             cont_events[i] = cont_events[i].union(set(events["controllable"][i]))
             obs_events[i] = obs_events[i].union(set(events["observable"][i]))
 

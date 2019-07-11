@@ -20,12 +20,8 @@ class MainApp(App):
     current_automaton = DictProperty()
     temp_folders = DictProperty()
 
-    # def on_open_automata(self, instance, value):
-    #     print("Updated in main app")
-    #     print(self.open_automata)
-
-    # def on_current_automaton(self, instance, value):
-    #     print("Updated current to be", self.current_automaton["name"])
+    def build(self):
+        self.title = 'DESwiz'
 
 
 if __name__ == '__main__':
