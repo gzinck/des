@@ -63,17 +63,20 @@ def visualize(automaton, location=None, view=True):
     # Add all states
     for state in automaton["states"]["all"]:
         secret = __identify_secret(automaton, state)
+        num_circles = "1"
+        if len(secret) > 0:
+            num_circles = "2"
 
         if "v2" in automaton["states"] and state in automaton["states"]["v2"]:
             if state in automaton["states"]["bad"]:
-                dot.node(state, label=state+secret, shape="box", color="red")
+                dot.node(state, label=state+secret, shape="box", color="red", peripheries=num_circles)
             else:
-                dot.node(state, label=state+secret, shape="box", color="black")
+                dot.node(state, label=state+secret, shape="box", color="black", peripheries=num_circles)
         else:
             if state in automaton["states"]["bad"]:
-                dot.node(state, label=state+secret, shape="ellipse", color="red")
+                dot.node(state, label=state+secret, shape="ellipse", color="red", peripheries=num_circles)
             else:
-                dot.node(state, label=state+secret, shape="ellipse", color="black")
+                dot.node(state, label=state+secret, shape="ellipse", color="black", peripheries=num_circles)
 
     for state in automaton["states"]["initial"]:
         invisible = state + "-invisible"
