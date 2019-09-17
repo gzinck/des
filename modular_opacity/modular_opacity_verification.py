@@ -1,8 +1,9 @@
 from basic_ops.opacity import check_opacity_already_determinized
 from basic_ops.union import union
 from basic_ops.determinize import determinize
+from modular_opacity.heuristics import no_heuristic, most_shared_heuristic, least_new_heuristic
 
-def check_modular_opacity(automata):
+def check_modular_opacity(automata, heuristic = no_heuristic):
     """Verifies current state opacity for the modular system composed of the
     input automata. Assumes that the shared alphabet of the automata is a
     subset of the attacker's alphabet, and the attacker's alphabet is defined
@@ -27,7 +28,7 @@ def check_modular_opacity(automata):
             unverified.remove(a)
 
             # Keep a list of all automata we can use to append to current one
-            automata_to_add = [*unverified, *verified]
+            automata_to_add = heuristic(a, unverified, verified)
 
             verified.append(a)
 
