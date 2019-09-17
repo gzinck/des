@@ -1,6 +1,6 @@
-from basic_ops.opacity import check_opacity
-from basic_ops.product import product
-
+from basic_ops.opacity import check_opacity_already_determinized
+from basic_ops.union import union
+from basic_ops.determinize import determinize
 
 def check_modular_opacity(automata):
     """Verifies current state opacity for the modular system composed of the
@@ -19,6 +19,7 @@ def check_modular_opacity(automata):
     bool
         Whether the set of modules is opaque
     """
+    automata = [determinize(x, 1) for x in automata]
     verified = []
     unverified = automata.copy()
     for a in automata:
@@ -26,8 +27,7 @@ def check_modular_opacity(automata):
             unverified.remove(a)
 
             # Keep a list of all automata we can use to append to current one
-            automata_to_add = unverified.copy()
-            automata_to_add.fromlist(verified)
+            automata_to_add = [*unverified, *verified]
 
             verified.append(a)
 
@@ -35,12 +35,13 @@ def check_modular_opacity(automata):
             curr = a
 
             # Keep going until it's opaque
-            while check_opacity(curr, 1) == False:
+            while check_opacity_already_determinized(curr)[0] == False:
                 if len(automata_to_add) == 0:
                     return False
                 next = automata_to_add.pop(0)
-                verified.append(next)
-                unverified.remove(next)
-                curr = product([curr, next])
+                if next in unverified:
+                    verified.append(next)
+                    unverified.remove(next)
+                curr = union([curr, next])
 
     return True
