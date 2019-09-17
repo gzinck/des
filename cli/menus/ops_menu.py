@@ -17,6 +17,7 @@ from cli.menus.name_automaton_menu import name_automaton_menu
 from cli.display.message import show_error, show_notification
 from cli.display.display_menu import display_menu
 from cli.save_and_visualize import save_temp
+from cli.menus.select_heuristic import select_heuristic
 
 
 # The message describing what the menu is for
@@ -165,7 +166,8 @@ def ops_menu(automata, temp_dir):
         show_notification("With this operation, we assume the\nattacker can see all items in the\nshared alphabet,as per Enforcing\nOpacity in Modular Systems (2020)")
         selected = select_automata_menu(automata, 1, "Checking Opacity for Modular Systems")
         if selected is not None:
-            result = check_modular_opacity(selected)
+            heuristic = select_heuristic()
+            result = check_modular_opacity(selected, heuristic = heuristic)
             show_notification("The modular system is " + ("opaque" if result else "not opaque"))
     elif inpt in ["e", "exit"]:
         pass
