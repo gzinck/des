@@ -4,6 +4,7 @@ import basic_ops.helpers.string_helpers as helper
 import json
 from modular_opacity.modular_opacity_verification import check_modular_opacity
 from structure_validation.automaton_validator import validate
+from modular_opacity.heuristics import most_shared_heuristic, least_new_heuristic
 
 class TestModularOpacity(unittest.TestCase):
     def setUp(self):
@@ -31,6 +32,8 @@ class TestModularOpacity(unittest.TestCase):
         for i in range(len(self.automata) // 2):
             # Check if opaque
             result = check_modular_opacity([self.automata[2*i], self.automata[2*i+1]])
-
-            # Check answer, making sure it's OK if elements not in order
+            self.assertEqual(result, self.answers[i])
+            result = check_modular_opacity([self.automata[2*i], self.automata[2*i+1]], heuristic = most_shared_heuristic)
+            self.assertEqual(result, self.answers[i])
+            result = check_modular_opacity([self.automata[2*i], self.automata[2*i+1]], heuristic = least_new_heuristic)
             self.assertEqual(result, self.answers[i])

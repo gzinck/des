@@ -8,6 +8,7 @@ from basic_ops.coaccessible import get_coaccessible
 from basic_ops.leakage_automaton import create_leakage_automaton
 from arenas.construct_arena import construct_arena
 from arenas.construct_attractor import construct_attractor
+from modular_opacity.modular_opacity_verification import check_modular_opacity
 
 from cli.selection.select_automata_menu import select_automata_menu, select_automaton_menu
 from cli.selection.select_observer_menu import select_observer_menu
@@ -41,6 +42,10 @@ Leaking Secrets (2019 paper) ops
 ba: build arena
 bt: build attractor (adds bad states to the arena)
 bp: build pruned arena (removes bad states using controllable)
+-------------------------------------------------------------------
+Enforcing Opacity in Modular Systems (2019 paper) ops
+-------------------------------------------------------------------
+om: check current state opacity for a modular system
 '''
 
 
@@ -156,6 +161,12 @@ def ops_menu(automata, temp_dir):
         if selected is not None:
             result = get_controllable(construct_attractor(selected))
             __save(automata, result, temp_dir)
+    elif inpt in ["om"]:
+        show_notification("With this operation, we assume the\nattacker can see all items in the\nshared alphabet,as per Enforcing\nOpacity in Modular Systems (2020)")
+        selected = select_automata_menu(automata, 1, "Checking Opacity for Modular Systems")
+        if selected is not None:
+            result = check_modular_opacity(selected)
+            show_notification("The modular system is " + ("opaque" if result else "not opaque"))
     elif inpt in ["e", "exit"]:
         pass
     else:
