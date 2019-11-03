@@ -15,6 +15,7 @@ import tests.opacity.modular_opacity_test as modular_opacity
 import tests.structure_validation.validator_test as validator
 import tests.arenas.contruct_arena_test as const_arena
 import tests.arenas.construct_attractor_test as const_attr
+import tests.communication.construct_comm_arena_test as const_comm
 
 # Initialize the test suite
 loader = unittest.TestLoader()
@@ -32,7 +33,7 @@ suite.addTests(loader.loadTestsFromModule(modular_opacity))
 suite.addTests(loader.loadTestsFromModule(validator))
 suite.addTests(loader.loadTestsFromModule(const_arena))
 suite.addTests(loader.loadTestsFromModule(const_attr))
-
+suite.addTests(loader.loadTestsFromModule(const_comm))
 
 # Initialize runner
 runner = unittest.TextTestRunner(verbosity=3)

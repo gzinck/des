@@ -9,6 +9,7 @@ from basic_ops.leakage_automaton import create_leakage_automaton
 from arenas.construct_arena import construct_arena
 from arenas.construct_attractor import construct_attractor
 from modular_opacity.modular_opacity_verification import check_modular_opacity
+from communication.construct_communication_arena import construct_communication_arena
 
 from cli.selection.select_automata_menu import select_automata_menu, select_automaton_menu
 from cli.selection.select_observer_menu import select_observer_menu
@@ -47,6 +48,10 @@ bp: build pruned arena (removes bad states using controllable)
 Enforcing Opacity in Modular Systems (2019 paper) ops
 -------------------------------------------------------------------
 om: check current state opacity for a modular system
+-------------------------------------------------------------------
+Arenas for Communication with Multiple Agents ops
+-------------------------------------------------------------------
+bca: build communication arena from (Ricker, 2013)
 '''
 
 
@@ -169,6 +174,11 @@ def ops_menu(automata, temp_dir):
             heuristic = select_heuristic()
             result = check_modular_opacity(selected, heuristic = heuristic)
             show_notification("The modular system is " + ("opaque" if result else "not opaque"))
+    elif inpt in ["bca"]:
+        selected = select_automaton_menu(automata, "Constructing Communication Arena")
+        if selected is not None:
+            result = construct_communication_arena(selected)
+            __save(automata, result, temp_dir)
     elif inpt in ["e", "exit"]:
         pass
     else:
