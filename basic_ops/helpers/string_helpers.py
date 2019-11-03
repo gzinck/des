@@ -96,6 +96,26 @@ def format_state_set(states):
     return str
 
 
+def format_event_vector(events):
+	"""Formats an event vector into a format with angle brackets.
+
+	Parameters
+	----------
+	events : list
+		List of strings representing the events to put together
+
+	Returns
+	-------
+	str
+		The string representing the event
+	"""
+	s = "["
+	for e in events:
+		s += e + ", "
+	s = s[:-2]
+	s += "]"
+	return s
+
 def format_transition(state, event):
     """Formats a state and event into the proper format for a transition,
     which is used as a key in the transition dictionary.

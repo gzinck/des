@@ -86,6 +86,7 @@ def visualize(automaton, location=None, view=True):
     for k, v in automaton["transitions"]["all"].items():
         from_state = extract_state(k)
         event = extract_event(k)
+        event = '"' + event + '"'
         for to_state in v:
             dot.edge(from_state, to_state, label=event)
 
