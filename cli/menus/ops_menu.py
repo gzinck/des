@@ -6,10 +6,10 @@ from basic_ops.accessible import get_accessible
 from basic_ops.controllable import get_controllable
 from basic_ops.coaccessible import get_coaccessible
 from basic_ops.leakage_automaton import create_leakage_automaton
-from arenas.construct_arena import construct_arena
-from arenas.construct_attractor import construct_attractor
+from leaking_secrets_arenas.construct_arena import construct_arena
+from leaking_secrets_arenas.construct_attractor import construct_attractor
 from modular_opacity.modular_opacity_verification import check_modular_opacity
-from communication.construct_communication_arena import construct_communication_arena
+from synchronous_communication.construct_communication_arena import construct_communication_arena
 
 from cli.selection.select_automata_menu import select_automata_menu, select_automaton_menu
 from cli.selection.select_observer_menu import select_observer_menu
@@ -38,20 +38,30 @@ ca: coaccessible (prune off states that do not reach marked states)
 l: create leakage automaton with respect to an agent's perspective
    and another agent's secret
 e: exit to main menu
--------------------------------------------------------------------
-Leaking Secrets (2019 paper) ops
+*******************************************************************
+Leaking Secrets (Ricker et al., 2019) ops
 -------------------------------------------------------------------
 ba: build arena
 bt: build attractor (adds bad states to the arena)
 bp: build pruned arena (removes bad states using controllable)
--------------------------------------------------------------------
-Enforcing Opacity in Modular Systems (2019 paper) ops
+*******************************************************************
+Enforcing Opacity in Modular Systems (Zinck et al., 2019) ops
 -------------------------------------------------------------------
 om: check current state opacity for a modular system
+*******************************************************************
+Arenas for Synchronous Communication (Ricker, 2008) ops
 -------------------------------------------------------------------
-Arenas for Communication with Multiple Agents ops
+bca: build communication arena
+*******************************************************************
+Arenas for Asynchronous Communication (Zinck et al., 2020) ops
 -------------------------------------------------------------------
-bca: build communication arena from (Ricker, 2013)
+t0:  use transducer 0 to add clock ticks
+t1:  use transducer 1 to add event communications
+t2:  use transducer 2 to propagate delay
+t3:  use transducer 3 to remove clock ticks and permute possible
+     send/receives
+baa: build asychronous communication arena
+paa: prune asynchronous communication arena 
 '''
 
 

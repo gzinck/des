@@ -1,4 +1,4 @@
-from arenas.helpers.construct_attractor_helpers import *
+from leaking_secrets_arenas.helpers.construct_attractor_helpers import *
 from copy import deepcopy
 
 

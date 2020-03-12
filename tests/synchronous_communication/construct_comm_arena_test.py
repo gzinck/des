@@ -3,13 +3,13 @@ import basic_ops.helpers.convert_to_sets as converter
 import basic_ops.helpers.string_helpers as helper
 from structure_validation.automaton_validator import validate
 import json
-from communication.construct_communication_arena import construct_communication_arena
+from synchronous_communication.construct_communication_arena import construct_communication_arena
 
 
 class TestConstructCommArena(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            "tests/communication/construct_comm_arena_test_cases/comm_test_1.in"
+            "tests/synchronous_communication/construct_comm_arena_test_cases/comm_test_1.in"
         ]
 
         # First automaton for each test case

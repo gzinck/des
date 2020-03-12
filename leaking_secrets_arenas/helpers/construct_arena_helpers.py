@@ -1,5 +1,5 @@
 from basic_ops.helpers.string_helpers import *
-from arenas.helpers.state_helpers import find_next_state
+from leaking_secrets_arenas.helpers.state_helpers import find_next_state
 
 
 def add_v2_transitions(automata, state, enabled_events, v2_trans, v2_visited, v1_visited, v1_queue):

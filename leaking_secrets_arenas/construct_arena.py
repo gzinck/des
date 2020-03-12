@@ -1,7 +1,7 @@
 from basic_ops.determinize import determinize
-from arenas.helpers.control_actions import get_valid_control_actions
-from arenas.helpers.state_helpers import check_marked_agents
-from arenas.helpers.construct_arena_helpers import add_v2_transitions
+from leaking_secrets_arenas.helpers.control_actions import get_valid_control_actions
+from leaking_secrets_arenas.helpers.state_helpers import check_marked_agents
+from leaking_secrets_arenas.helpers.construct_arena_helpers import add_v2_transitions
 from basic_ops.helpers.string_helpers import *
 
 

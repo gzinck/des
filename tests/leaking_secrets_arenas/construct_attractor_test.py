@@ -8,8 +8,8 @@ from leaking_secrets_arenas.construct_attractor import construct_attractor
 class TestConstructAttractor(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            "tests/arenas/construct_attractor_test_cases/arenas_test_1.in",
-            "tests/arenas/construct_attractor_test_cases/arenas_test_3.in"
+            "tests/leaking_secrets_arenas/construct_attractor_test_cases/arenas_test_1.in",
+            "tests/leaking_secrets_arenas/construct_attractor_test_cases/arenas_test_3.in"
         ]
 
         # First automaton for each test case
