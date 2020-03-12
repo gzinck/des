@@ -16,6 +16,7 @@ import tests.structure_validation.validator_test as validator
 import tests.leaking_secrets_arenas.contruct_arena_test as const_arena
 import tests.leaking_secrets_arenas.construct_attractor_test as const_attr
 import tests.synchronous_communication.construct_comm_arena_test as const_comm
+import tests.asynchronous_communication.t0_test as t0
 
 # Initialize the test suite
 loader = unittest.TestLoader()
@@ -34,6 +35,7 @@ suite.addTests(loader.loadTestsFromModule(validator))
 suite.addTests(loader.loadTestsFromModule(const_arena))
 suite.addTests(loader.loadTestsFromModule(const_attr))
 suite.addTests(loader.loadTestsFromModule(const_comm))
+suite.addTests(loader.loadTestsFromModule(t0))
 
 # Initialize runner
 runner = unittest.TextTestRunner(verbosity=3)

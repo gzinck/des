@@ -83,7 +83,7 @@ def format_state_set(states):
     Examples
     --------
     >>> print(format_state(["q1"]))
-    "(q1)"
+    "{q1}"
     >>> print(format_state(["q1", "q2", "(q3, q4)"]))
     "{q1, q2, (q3, q4)}"
     """
@@ -97,24 +97,25 @@ def format_state_set(states):
 
 
 def format_event_vector(events):
-	"""Formats an event vector into a format with angle brackets.
+    """Formats an event vector into a format with angle brackets.
 
-	Parameters
-	----------
-	events : list
-		List of strings representing the events to put together
+    Parameters
+    ----------
+    events : list
+        List of strings representing the events to put together
 
-	Returns
-	-------
-	str
-		The string representing the event
-	"""
-	s = "["
-	for e in events:
-		s += e + ", "
-	s = s[:-2]
-	s += "]"
-	return s
+    Returns
+    -------
+    str
+        The string representing the event
+    """
+    s = "["
+    for e in events:
+        s += e + ", "
+    s = s[:-2]
+    s += "]"
+    return s
+
 
 def format_transition(state, event):
     """Formats a state and event into the proper format for a transition,
@@ -220,6 +221,57 @@ def extract_event(transition):
         The corresponding event from the transition
     """
     return transition.split("->", 1)[1]
+
+
+def set_since_tau(state, events_since_tau):
+    """Sets the number of events since tau in the name of the state.
+
+    Parameters
+    ----------
+    state: str
+    events_since_tau: int
+        The number of events that have occurred since τ occurred
+
+    Returns
+    -------
+    str
+        The new state name that incorporates the number of events since τ.
+    """
+    return f'{state}_{events_since_tau}'
+
+
+def extract_since_tau(state):
+    """Extracts the number of events that have occurred since an event τ.
+    Only works if state is formatted as "5_0", representing 0 events since
+    τ.
+
+    Parameters
+    ----------
+    state: str
+
+    Returns
+    -------
+    int
+        The number of events since the tau occurred
+    """
+    return int(state.rsplit("_", 1)[1])
+
+
+def extract_state_without_since_tau(state):
+    """Extracts the name of the state without the number of events that have
+    occurred since an event τ. Only works if state is formatted as "5_0",
+    representing 0 events since τ at state 5.
+
+    Parameters
+    ----------
+    state: str
+
+    Returns
+    -------
+    str
+        The state without the since tau
+    """
+    return state.rsplit("_", 1)[0]
 
 
 def pretty_print(automaton):

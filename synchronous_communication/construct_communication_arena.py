@@ -1,5 +1,6 @@
 from basic_ops.helpers.string_helpers import *
 
+
 def construct_communication_arena(automaton):
 	"""Constructs an arena from an automaton, as specified in a tutorial in
 	(Ricker, 2013). The arena has only one type of state and one type of
