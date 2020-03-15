@@ -10,7 +10,8 @@ from leaking_secrets_arenas.construct_arena import construct_arena
 from leaking_secrets_arenas.construct_attractor import construct_attractor
 from modular_opacity.modular_opacity_verification import check_modular_opacity
 from synchronous_communication.construct_communication_arena import construct_communication_arena
-from asynchronous_communication.add_clock_ticks import add_clock_ticks
+from asynchronous_communication.t0_add_clock_ticks import add_clock_ticks
+from asynchronous_communication.t1_add_comm import add_communication
 
 from cli.selection.select_automata_menu import select_automata_menu, select_automaton_menu
 from cli.selection.select_observer_menu import select_observer_menu
@@ -192,11 +193,18 @@ def ops_menu(automata, temp_dir):
             result = construct_communication_arena(selected)
             __save(automata, result, temp_dir)
     elif inpt in ["t0"]:
-        selected = select_automaton_menu(automata, "Adding tau with transducer 1")
+        selected = select_automaton_menu(automata, "Adding tau with transducer 0")
         if selected is not None:
             delta = select_delta_menu()
             if delta is not None:
                 result = add_clock_ticks(selected, delta)
+                __save(automata, result, temp_dir)
+    elif inpt in ["t1"]:
+        selected = select_automaton_menu(automata, "Adding tau with transducer 1")
+        if selected is not None:
+            agent = select_observer_menu(selected)
+            if agent is not None:
+                result = add_communication(selected, agent)
                 __save(automata, result, temp_dir)
     elif inpt in ["e", "exit"]:
         pass

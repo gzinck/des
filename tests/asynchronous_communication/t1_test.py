@@ -3,17 +3,17 @@ import basic_ops.helpers.convert_to_sets as converter
 from structure_validation.automaton_validator import validate
 import basic_ops.helpers.string_helpers as helper
 import json
-from asynchronous_communication.t0_add_clock_ticks import add_clock_ticks
+from asynchronous_communication.t1_add_comm import add_communication
 
 
-class TestAddClockTicks(unittest.TestCase):
+class TestAddCommAnnotations(unittest.TestCase):
     def setUp(self):
         self.filenames = [
-            "tests/asynchronous_communication/test_cases/t0_test.in"
+            "tests/asynchronous_communication/test_cases/t1_test.in"
         ]
 
-        self.delta = [
-            2
+        self.agent = [
+            1
         ]
 
         self.automata = [{}] * len(self.filenames)
@@ -27,7 +27,7 @@ class TestAddClockTicks(unittest.TestCase):
             with open(self.filenames[i][:-3] + ".out") as f:
                 ans = json.load(f)
 
-            result = add_clock_ticks(self.automata[i], self.delta[i])
+            result = add_communication(self.automata[i], self.agent[i])
             validate(result)
 
             # Print
